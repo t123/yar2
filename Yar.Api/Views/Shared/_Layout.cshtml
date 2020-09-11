@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YAR</title>
+    <link rel="stylesheet" type="text/css" href="~/SemanticUI/semantic.css">
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+</head>
+<body>
+    <div id="app">
+        <div class="ui fixed inverted menu">
+            <div class="ui container">
+                <a class="header item">
+                    YAR
+                </a>
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Text" asp-action="Index" class="item">Texts</a>
+                    <a asp-controller="Language" asp-action="Index" class="item">Languages</a>
+                    <a asp-controller="Word" asp-action="Index" class="item">Words</a>
+                    <span class="item">@Context.User.Identity.Name</span>
+                    <a asp-controller="Account" asp-action="SignOut" class="item">Change Profile</a>
+                }
+            </div>
+        </div>
+
+        @RenderSection("secondaryMenu", required: false)
+
+        <div class="ui main text container yar-container">
+            @RenderBody()
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui center aligned container">
+                <div class="ui horizontal inverted small divided link list">
+                    <a class="item" href="#">Site Map</a>
+                    <a class="item" href="#">Contact Us</a>
+                    <a class="item" href="#">Terms and Conditions</a>
+                    <a class="item" href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderSection("body", required: false)
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+
+    <!-- normal script imports etc  -->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/SemanticUI/semantic.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+</body>
+</html>

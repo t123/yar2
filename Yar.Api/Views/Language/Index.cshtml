@@ -1,0 +1,38 @@
+﻿@model IEnumerable<LanguageIndexModel>
+
+@section secondaryMenu {
+    <div class="ui menu secondary-menu">
+        <div class="ui container">
+            <a asp-action="Index" class="item">All Languages</a>
+            <a asp-action="Create" class="item">Create a new language</a>
+        </div>
+    </div>
+}
+
+<div class="languages">
+    <table class="ui celled striped table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var language in Model)
+            {
+                <tr>
+                    <td>@language.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-languageId="@language.Id" class="ui button">Edit</a>
+                    </td>
+                    <td>
+                        <form method="post" asp-action="Delete" asp-route-languageId="@language.Id">
+                            <button class="ui button">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

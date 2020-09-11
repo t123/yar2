@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WordIndexModel>
+
+<div class="words">
+    <table class="ui celled striped table">
+        <thead>
+            <tr>
+                <th>Language</th>
+                <th>Phrase</th>
+                <th>Translation</th>
+                <th>Sentences</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var word in Model)
+            {
+                <tr>
+                    <td>@word.LanguageName</td>
+                    <td>@word.Phrase</td>
+                    <td>@word.Translation</td>
+                    <td>@word.SentenceCount</td>
+                </tr>
+                @foreach(var sentence in word.Sentences)
+                {
+                    <tr>
+                        <td>@sentence.Created</td>
+                        <td colspan="3">@sentence.Sentence</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

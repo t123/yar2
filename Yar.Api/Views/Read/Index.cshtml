@@ -1,0 +1,48 @@
+﻿@model ReadIndexModel
+@{ 
+    Layout = "_ReaderLayout";
+}
+
+<div id="readerContainer" data-text-id="@Model.TextId" data-as-parallel="@Model.AsParallel">
+    <div class="reading-container">
+
+    </div>
+    <div class="modal hidden">
+        <div class="translation">
+            <input type="text" value="" name="translation" placeholder="translation" title="The translation of the word" />
+            <div class="links">
+                <a class="translate" title="Open sentence in Google Translate">S</a>
+                <a class="forvo" title="Search for word in Forvo">F</a>
+                <a class="google" title="Query Google Translate for new translation">G</a>
+                <a class="bing" title="Query Microsoft for new translation">M</a>
+                <div class="custom-links">
+                </div>
+            </div>
+            <span class="show-more"><a title="Shortcut: Down Arrow">↕</a></span>
+        </div>
+        <div class="more" style="display:none">
+            <div class="base-phrase">
+                <input type="text" value="" name="phrase-base" placeholder="base phrase" />
+            </div>
+            <div class="notes">
+                <textarea name="notes" placeholder="notes"></textarea>
+            </div>
+            <div class="states">
+                <input type="radio" value="notknown" name="state" />Unknown
+                <input type="radio" value="known" name="state" />Known
+                <input type="radio" value="ignored" name="state" />Ignore
+            </div>
+            <div class="footer">
+                <button class="save" title="Shortcut: Enter/Return">Save</button>
+                <span class="stats"></span>
+                <a class="cancel" title="Shortcut: Escape">Cancel</a>
+            </div>
+        </div>
+    </div>
+    <span class="tooltip hidden"></span>
+    <div class="pager">
+        <div class="button-container"><button class="previous" title="Shortcut: Left Arrow">←</button></div>
+        <div class="page-counter"></div>
+        <div class="button-container"><button class="next" title="Shortcut: Right Arrow, Space">→</button></div>
+    </div>
+</div>

@@ -1,0 +1,312 @@
+
+@import './vars';
+
+$readingFont: 'Times New Roman', Times, serif;
+$readingBackground: #f4f4eb;
+$readingTermColor: black;
+
+$currentTermColor: inherit;
+$currentTermBackgroundColor: inherit;
+$currentTermBorder: 0;
+
+$notSeenTermColor: inherit;
+$notSeenTermBackgroundColor: inherit;
+$notSeenTermBorder: 0;
+
+$notKnownTermColor: inherit;
+$notKnownTermBackgroundColor: rgba(255, 0, 0, $alpha: 0.08);
+$notKnownTermBorder: 1px solid rgba(255, 0, 0, $alpha: 0.1);
+
+$knownTermColor: inherit;
+$knownTermBackgroundColor: inherit;
+$knownTermBorder: 0;
+
+$punctuationTermColor: inherit;
+$punctuationBackgroundColor: unset;
+$punctuationTermBorder: 0;
+
+$hoverTermBorder: 3px solid red;
+
+$pagerHeight: 80px;
+
+#readerContainer.has-paging {
+    height: calc(100vh - #{$primaryNavHeight + $secondaryNavHeight});
+    position: relative;
+
+    .reading-container {
+        height: calc(100vh - #{$primaryNavHeight + $secondaryNavHeight + $pagerHeight});
+    }
+
+    .pager {
+        display: flex;
+    }
+}
+
+#readerContainer.no-paging {
+  height: calc(100vh - #{$primaryNavHeight + $secondaryNavHeight});
+  overflow: auto;
+
+  .reading-container {
+    height: calc(100vh - #{$primaryNavHeight + $secondaryNavHeight});
+  }
+
+  .pager {
+    display: none;
+  }
+}
+
+#readerContainer.l1-not-spaced {
+  td.__active {
+    word-break: break-word;
+
+    span.__whitespace {
+      display: none;
+    }
+  }
+}
+
+#readerContainer.l2-not-spaced {
+  td.disabled {
+    word-break: break-word;
+  }
+}
+
+#readerContainer {
+    padding: 0 1%;
+    background-color: $readingBackground;
+
+    .modal {
+        position: absolute;
+        background-color: $yar-secondary;
+        border: 0;
+        padding: 5px 10px;
+        display: block;
+        z-index: 1000;
+
+        &.hidden {
+            display: none;
+        }
+
+        &.expanded {
+            width: 450px;
+            padding: 5px 10px;
+            border: 1px solid $yar-primary;
+
+            input[type='text'],
+            textarea {
+                margin-bottom: 5px;
+                width: 100%;
+                padding-left: 3px;
+            }
+        }
+
+        .stats {
+            font-size: smaller;
+        }
+
+        .translation {
+            display: flex;
+            align-items: center;
+
+            .links {
+                font-size: smaller;
+                white-space: nowrap;
+                margin: 0 10px;
+
+                .custom-links {
+                    display: inline-block;
+                }
+
+                a {
+                    display: inline-block;
+                    margin: 0 1px;
+
+                    &:hover {
+                        color: white;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+
+                    &.hidden {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .states {
+            font-size: smaller;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-top: 5px;
+        }
+
+        .cancel {
+            font-size: smaller;
+            color: black;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+                color: white;
+            }
+        }
+
+        input[name='translation'] {
+            border: 2px solid $yar-secondary;
+
+            &.notknown {
+                border: 2px solid red;
+            }
+
+            &.known {
+                border: 2px solid rgb(55, 243, 55);
+            }
+        }
+    }
+
+    .tooltip {
+        position: absolute;
+        background-color: #dae5eb;
+        border: 1px solid darken(#dae5eb, 20%);
+        padding: 5px 10px;
+        display: block;
+        white-space: nowrap;
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .pager {
+        height: $pagerHeight;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: $readingBackground;
+        display: none;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .page-counter {
+            width: 100px;
+            text-align: center;
+        }
+
+        .button-container {
+            width: 40%;
+            height: 40px;
+
+            button {
+                text-align: center;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.reading-container {
+    font-family: $readingFont;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+
+    table.reading-table.single tr td {
+        width: 100%;
+    }
+
+    table.reading-table.parallel tr {
+        &.header {
+            td {
+                padding-top: 10px;
+            }
+        }
+
+        &.header,
+        &.footer {
+            td:first-child {
+                border-right: 0;
+            }
+        }
+
+        &:hover {
+            background-color: rgb(224, 224, 215);
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        td:first-child {
+            width: 49%;
+            border-right: 1px solid black;
+        }
+
+        td:last-child {
+            padding-left: 10px;
+            width: 50%;
+        }
+    }
+
+    table.reading-table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        color: $readingTermColor;
+        background-color: $readingBackground;
+        width: 100%;
+
+        tr {
+            td.__active {
+                padding: 2px 0;
+
+                span.__term {
+                    &.__common {
+                        background-color: rgba(81, 149, 81, 0.171);
+                        border: 1px solid rgba(81, 149, 81, 0.3);
+                    }
+                }
+
+                span.__current {
+                    color: $currentTermColor;
+                    background-color: $currentTermBackgroundColor;
+                    border-bottom: $currentTermBorder;
+                }
+
+                span.__notseen {
+                    color: $notSeenTermColor;
+                    background-color: $notSeenTermBackgroundColor;
+                    border-bottom: $notSeenTermBorder;
+                }
+
+                span.__notknown {
+                    color: $notKnownTermColor;
+                    background-color: $notKnownTermBackgroundColor;
+                    border: $notKnownTermBorder;
+                }
+
+                span.__known {
+                    color: $knownTermColor;
+                    background-color: $knownTermBackgroundColor;
+                    border-bottom: $knownTermBorder;
+                }
+
+                span.hover {
+                    border-bottom: $hoverTermBorder;
+                }
+
+                span.__nt,
+                span.__punctuation {
+                    color: $punctuationTermColor;
+                    background-color: $punctuationBackgroundColor;
+                    border-bottom: $punctuationTermBorder;
+                }
+            }
+        }
+    }
+}

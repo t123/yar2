@@ -1,0 +1,178 @@
+﻿.ui.text.container {
+  max-width: none !important; }
+
+.ui.container {
+  width: auto !important; }
+
+.yar-container {
+  padding-top: 50px; }
+
+#readerContainer.has-paging {
+  height: calc(100vh - 70px);
+  overflow: hidden; }
+  #readerContainer.has-paging .reading-container {
+    height: calc(100vh - 150px); }
+  #readerContainer.has-paging .pager {
+    display: flex; }
+
+#readerContainer.no-paging {
+  height: calc(100vh - 70px);
+  overflow: auto; }
+  #readerContainer.no-paging .reading-container {
+    height: calc(100vh - 70px); }
+  #readerContainer.no-paging .pager {
+    display: none; }
+
+#readerContainer.l1-not-spaced td.__active {
+  word-break: break-word; }
+  #readerContainer.l1-not-spaced td.__active span.__whitespace {
+    display: none; }
+
+#readerContainer.l2-not-spaced td.disabled {
+  word-break: break-word; }
+
+#readerContainer {
+  padding: 0 1%;
+  background-color: #f4f4eb; }
+
+.reading-container {
+  font-family: "Times New Roman", Times, serif;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto; }
+  .reading-container table.reading-table.single tr td {
+    width: 100%; }
+  .reading-container table.reading-table.parallel tr.header td {
+    padding-top: 10px; }
+  .reading-container table.reading-table.parallel tr.header td:first-child, .reading-container table.reading-table.parallel tr.footer td:first-child {
+    border-right: 0; }
+  .reading-container table.reading-table.parallel tr:hover {
+    background-color: #e0e0d7; }
+  .reading-container table.reading-table.parallel tr td {
+    vertical-align: top; }
+  .reading-container table.reading-table.parallel tr td:first-child {
+    width: 49%;
+    border-right: 1px solid black; }
+  .reading-container table.reading-table.parallel tr td:last-child {
+    padding-left: 10px;
+    width: 50%; }
+  .reading-container table.reading-table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    color: black;
+    background-color: #f4f4eb;
+    width: 100%; }
+    .reading-container table.reading-table tr td.__active {
+      padding: 2px 0; }
+      .reading-container table.reading-table tr td.__active span.__term.__common {
+        background-color: rgba(81, 149, 81, 0.171);
+        border: 1px solid rgba(81, 149, 81, 0.3); }
+      .reading-container table.reading-table tr td.__active span.__current {
+        color: inherit;
+        background-color: inherit;
+        border-bottom: 0; }
+      .reading-container table.reading-table tr td.__active span.__notseen {
+        color: inherit;
+        background-color: inherit;
+        border-bottom: 0; }
+      .reading-container table.reading-table tr td.__active span.__notknown {
+        color: inherit;
+        background-color: rgba(255, 0, 0, 0.08);
+        border: 1px solid rgba(255, 0, 0, 0.1); }
+      .reading-container table.reading-table tr td.__active span.__known {
+        color: inherit;
+        background-color: inherit;
+        border-bottom: 0; }
+      .reading-container table.reading-table tr td.__active span.hover {
+        border-bottom: 3px solid red; }
+      .reading-container table.reading-table tr td.__active span.__nt,
+      .reading-container table.reading-table tr td.__active span.__punctuation {
+        color: inherit;
+        background-color: unset;
+        border-bottom: 0; }
+  .reading-container .modal {
+    position: absolute;
+    background-color: #7da7bf;
+    border: 0;
+    padding: 5px 10px;
+    display: block;
+    z-index: 1000; }
+    .reading-container .modal.hidden {
+      display: none; }
+    .reading-container .modal.expanded {
+      width: 450px;
+      padding: 5px 10px;
+      border: 1px solid #47758f; }
+      .reading-container .modal.expanded input[type='text'],
+      .reading-container .modal.expanded textarea {
+        margin-bottom: 5px;
+        width: 100%;
+        padding-left: 3px; }
+    .reading-container .modal .stats {
+      font-size: smaller; }
+    .reading-container .modal .translation {
+      display: flex;
+      align-items: center; }
+      .reading-container .modal .translation .links {
+        font-size: smaller;
+        white-space: nowrap;
+        margin: 0 10px; }
+        .reading-container .modal .translation .links .custom-links {
+          display: inline-block; }
+        .reading-container .modal .translation .links a {
+          display: inline-block;
+          margin: 0 1px; }
+          .reading-container .modal .translation .links a:hover {
+            color: white;
+            text-decoration: underline;
+            cursor: pointer; }
+          .reading-container .modal .translation .links a.hidden {
+            display: none; }
+    .reading-container .modal .states {
+      font-size: smaller; }
+    .reading-container .modal .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 5px; }
+    .reading-container .modal .cancel {
+      font-size: smaller;
+      color: black;
+      cursor: pointer; }
+      .reading-container .modal .cancel:hover {
+        text-decoration: underline;
+        color: white; }
+    .reading-container .modal input[name='translation'] {
+      border: 2px solid #7da7bf; }
+      .reading-container .modal input[name='translation'].notknown {
+        border: 2px solid red; }
+      .reading-container .modal input[name='translation'].known {
+        border: 2px solid #37f337; }
+  .reading-container .tooltip {
+    position: absolute;
+    background-color: #dae5eb;
+    border: 1px solid #98b6c7;
+    padding: 5px 10px;
+    display: block;
+    white-space: nowrap; }
+    .reading-container .tooltip.hidden {
+      display: none; }
+  .reading-container .pager {
+    height: 80px;
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    right: 0;
+    background-color: #f4f4eb;
+    display: none;
+    justify-content: space-between;
+    align-items: flex-end; }
+    .reading-container .pager .page-counter {
+      width: 100px;
+      text-align: center; }
+    .reading-container .pager .button-container {
+      width: 40%;
+      height: 40px; }
+      .reading-container .pager .button-container button {
+        text-align: center;
+        width: 100%; }

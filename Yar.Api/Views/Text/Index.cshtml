@@ -1,0 +1,80 @@
+﻿@model IEnumerable<string>
+
+@section secondaryMenu {
+    <div class="ui menu secondary-menu">
+        <div class="ui container">
+            <a asp-action="Index" class="item">All Texts</a>
+            <a asp-action="Create" class="item">Create a new text</a>
+            @{ 
+                foreach(var language in Model.OrderBy(x=>x.ToLowerInvariant()))
+                {
+                    <a class="item" v-on:click="filterByLanguage('@language')">@language</a>
+                }
+            }
+        </div>
+    </div>
+}
+
+<div class="texts">
+    <div class="ui inverted segment">
+        <div class="filter ui inverted form">
+            <div class="field">
+                <input type="text" v-model="filter" v-on:keyup="getTexts()" placeholder="Type to filter your texts. Special tags: title:[title] collection:[collection] language:[language] parallel:[yes,no] read:[yes,no,number]" />
+            </div>
+        </div>
+    </div>
+    <div v-if="loading">
+        <div class="ui active centered inline loader">Loading</div>
+    </div>
+    <div v-else>
+        <table class="ui celled striped table">
+            <thead>
+                <tr>
+                    <th>Language</th>
+                    <th>Collection</th>
+                    <th>Collection No</th>
+                    <th>Title</th>
+                    <th>Parallel</th>
+                    <th>Created</th>
+                    <th>Last Read</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="text in texts">
+                    <td>{{ text.languageName }}</td>
+                    <td>{{ text.collection }}</td>
+                    <td>{{ text.collectionNo }}</td>
+                    <td>
+                        <a v-bind:href="text.readUrl">
+                            {{ text.title }}
+                        </a>
+                    </td>
+                    <td>
+                        <a v-bind:href="text.readUrl + '?asParallel=true'" v-if="text.isParallel">
+                            Yes
+                        </a>
+                        <span v-else>
+                            No
+                        </span>
+                    </td>
+                    <td>{{ text.created }}</td>
+                    <td>{{ text.lastRead }}</td>
+                    <td>
+                        <a v-bind:href="text.editUrl" class="ui button" >
+                            Edit
+                        </a>
+                    </td>
+                    <td>
+                        <button class="ui button negative" v-on:click="deleteText(text.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section body {
+    <script src="~/js/texts.js"></script>
+}

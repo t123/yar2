@@ -1,0 +1,33 @@
+﻿@model IEnumerable<UserIndexModel>
+
+<div class="users">
+    @if (Model.Any())
+    {
+        <form class="ui form" asp-action="SignIn" method="post">
+            <h4>Use an existing profile</h4>
+            <div class="fields">
+                <div class="field">
+                    <label>Name</label>
+                    <select class="ui fluid dropdown" name="username">
+                        @foreach (var user in Model)
+                        {
+                            <option value="@user.Username">@user.Username</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="ui primary submit button" value="Use this profile" />
+        </form>
+    }
+
+    <form class="ui form" asp-action="CreateProfile" method="post">
+        <h4>Create a new profile</h4>
+        <div class="fields">
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="username" placeholder="Your name">
+            </div>
+        </div>
+        <input type="submit" class="ui primary submit button" value="Create" />
+    </form>
+</div>

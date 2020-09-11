@@ -1,0 +1,64 @@
+﻿@model ReadIndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YAR</title>
+    <link rel="stylesheet" type="text/css" href="~/SemanticUI/semantic.css">
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+    <link rel="stylesheet" type="text/css" href="~/css/reader.css">
+</head>
+<body>
+    <div class="ui fixed inverted menu">
+        <div class="ui container">
+            <a class="header item">
+                YAR
+            </a>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="Text" asp-action="Index" class="item">Texts</a>
+                <a asp-controller="Language" asp-action="Index" class="item">Languages</a>
+                <a asp-controller="Word" asp-action="Index" class="item">Words</a>
+                <a asp-controller="User" asp-action="Index" class="item">My Profile</a>
+                <a asp-controller="Account" asp-action="SignOut" class="item">Change Profile</a>
+            }
+        </div>
+    </div>
+    <div class="ui menu secondary-menu">
+        <div class="ui container">
+            <a asp-controller="Text" asp-action="Index" asp-route-textId="@Model.TextId" class="item">All Texts</a>
+            <a asp-controller="Text" asp-action="Edit" asp-route-textId="@Model.TextId" class="item">Edit Text</a>
+            <a asp-controller="Language" asp-action="Edit" asp-route-languageId="@Model.LanguageId" class="item">Edit Language</a>
+            @if (Model.IsParallel)
+            {
+                if (Model.AsParallel)
+                {
+                    <a asp-controller="Read" asp-action="Index" asp-route-textId="@Model.TextId" asp-route-asParallel="false" class="item">Single</a>
+                }
+                else
+                {
+                    <a asp-controller="Read" asp-action="Index" asp-route-textId="@Model.TextId" asp-route-asParallel="true" class="item">Parallel</a>
+                }
+            }
+        </div>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+
+    <!-- normal script imports etc  -->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/reader.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+    <script>
+        var r = new GlobalAccess["reader"].Reader();
+    </script>
+</body>
+</html>
