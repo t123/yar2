@@ -103,14 +103,13 @@ namespace Yar.BLL
             obj.SetOption(LanguageOptions.CopyClipboard, language.CopyClipboard);
             obj.SetOption(LanguageOptions.ShowDefinitions, language.ShowDefinitions);
             obj.SetOption(LanguageOptions.GoogleTranslateUrl, language.GoogleTranslateUrl);
+            obj.SetOption(LanguageOptions.DeepLUrl, language.DeepLUrl);
             obj.SetOption(LanguageOptions.ForvoLanguageCode, language.ForvoLanguageCode);
             obj.SetOption(LanguageOptions.MaxFragmentParseLength, language.MaxFragmentParseLength);
             obj.SetOption(LanguageOptions.ShowTermStatistics, language.ShowTermStatistics);
             obj.SetOption(LanguageOptions.MostCommonTerms, language.MostCommonTerms);
             obj.SetOption(LanguageOptions.CustomDictionaryAuto, language.CustomDictionaryAuto);
             obj.SetOption(LanguageOptions.CustomDictionaryUrl, JsonConvert.SerializeObject(language.CustomDictionaryUrl.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)));
-            obj.SetOption(LanguageOptions.EnableLeitner, language.EnableLeitner);
-            obj.SetOption(LanguageOptions.LeitnerMultiplier, language.LeitnerMultiplier);
             obj.SetOption(LanguageOptions.StateOnOpen, language.StateOnOpen);
             obj.SetOption(LanguageOptions.SingleViewPercentage, language.SingleViewPercentage);
             obj.SetOption(LanguageOptions.SingleLineHeight, language.SingleLineHeight);
@@ -120,6 +119,8 @@ namespace Yar.BLL
             obj.SetOption(LanguageOptions.FontColor, language.FontColor);
             obj.SetOption(LanguageOptions.BackgroundColor, language.BackgroundColor);
             obj.SetOption(LanguageOptions.FontFamily, language.FontFamily);
+            obj.SetOption(LanguageOptions.HighlightLines, language.HighlightLines);
+            obj.SetOption(LanguageOptions.HighlightLinesColour, language.HighlightLinesColour);
 
             _repository.Save(obj);
         }

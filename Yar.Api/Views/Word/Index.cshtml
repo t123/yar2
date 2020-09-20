@@ -1,5 +1,17 @@
 ﻿@model IEnumerable<WordIndexModel>
 
+@section secondaryMenu {
+    <div class="ui menu secondary-menu">
+        <div class="ui container">
+            <a asp-action="Index" class="item">All Words</a>
+            @foreach (var language in Model.Select(x => x.LanguageName).Distinct().OrderBy(x => x))
+            {
+                <a asp-controller="Word" asp-action="Download" class="item" asp-route-languageName="@language">Export @language</a>
+            }
+        </div>
+    </div>
+}
+
 <div class="words">
     <table class="ui celled striped table">
         <thead>
@@ -8,6 +20,8 @@
                 <th>Phrase</th>
                 <th>Translation</th>
                 <th>Sentences</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -18,12 +32,20 @@
                     <td>@word.Phrase</td>
                     <td>@word.Translation</td>
                     <td>@word.SentenceCount</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-wordId="@word.Id" class="ui button">Edit</a>
+                    </td>
+                    <td>
+                        <form method="post" asp-action="Delete" asp-route-wordId="@word.Id">
+                            <button class="ui button">Delete</button>
+                        </form>
+                    </td>
                 </tr>
-                @foreach(var sentence in word.Sentences)
+                @foreach (var sentence in word.Sentences)
                 {
                     <tr>
                         <td>@sentence.Created</td>
-                        <td colspan="3">@sentence.Sentence</td>
+                        <td colspan="5">@sentence.Sentence</td>
                     </tr>
                 }
             }

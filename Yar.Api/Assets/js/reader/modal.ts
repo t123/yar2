@@ -21,7 +21,8 @@ export class Modal {
     private $modalSectionMore: JQuery<HTMLElement>;
     private $modalStats: JQuery<HTMLElement>;
 
-    private $modalLinkSentence: JQuery<HTMLElement>;
+    private $modalLinkSentenceGoogle: JQuery<HTMLElement>;
+    private $modalLinkSentenceDeepL: JQuery<HTMLElement>;
     private $modalLinkGoogle: JQuery<HTMLElement>;
     private $modalLinkBing: JQuery<HTMLElement>;
     private $modalLinkForvo: JQuery<HTMLElement>;
@@ -38,11 +39,18 @@ export class Modal {
         this.$modalState = this.$modal.find('input[name="state"]');
         this.$modalSectionMore = this.$modal.find('.more');
         this.$modalStats = this.$modal.find('.stats');
-        this.$modalLinkSentence = this.$modal.find('.links').find('a.translate');
+        
         this.$modalLinkGoogle = this.$modal.find('.links').find('a.google');
         this.$modalLinkBing = this.$modal.find('.links').find('a.bing');
         this.$modalLinkForvo = this.$modal.find('.links').find('a.forvo');
         this.$modalLinkCustom = this.$modal.find('.links').find('div.custom-links');
+
+        this.$modalLinkSentenceGoogle = this.$modal.find('.links2').find('a.translate-google');
+        this.$modalLinkSentenceDeepL = this.$modal.find('.links2').find('a.translate-deepl');
+    }
+
+    public addNewline() {
+        this.$modalNotes.val(this.$modalNotes.val() + '\n');
     }
 
     public showModal(attachedElement: JQuery<HTMLElement>, response: ReadWordResponseModel, options: LanguageOptionsModel): void {
@@ -77,7 +85,11 @@ export class Modal {
         }
 
         if (!this.options.hasGoogleTranslate) {
-            this.$modalLinkSentence.addClass('hidden');
+            this.$modalLinkSentenceGoogle.addClass('hidden');
+        }
+
+        if (!this.options.hasDeepL) {
+            this.$modalLinkSentenceDeepL.addClass('hidden');
         }
 
         if (!this.options.hasForvo) {

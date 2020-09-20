@@ -30,7 +30,7 @@ namespace Yar.Api.Controllers
                 .LanguageService
                 .Get(UserId)
                 .Select(x => x.Name);
-                
+
             return View(languages);
         }
 
@@ -145,9 +145,13 @@ namespace Yar.Api.Controllers
         [Route("save")]
         public IActionResult Save(PostTextDto text)
         {
-            _uow.TextService.Save(UserId, text);
+            var result = _uow.TextService.Save(UserId, text);
 
-            return RedirectToAction("Index");
+            switch (text.Action)
+            {
+                case "submit-read": return RedirectToAction("Index", "Read", new { textId = result.Id, asParallel = result.IsParallel });
+                default: return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]

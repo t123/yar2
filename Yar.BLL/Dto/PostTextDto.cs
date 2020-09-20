@@ -10,5 +10,6 @@
         public string Title { get; set; }
         public string Collection { get; set; }
         public int? CollectionNo { get; set; }
+        public string Action { get; set; }
     }
 }

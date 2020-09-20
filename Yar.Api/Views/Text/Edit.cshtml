@@ -19,69 +19,74 @@
 }
 
 @section scripts {
-<script>
-    jQuery('.existing-collections').on('change', function(event) {
-        jQuery('#Collection').val(jQuery(event.target).val());
-    });
-</script>
+    <script type="text/javascript">
+        //$('select.dropdown').dropdown();
+
+        jQuery('.existing-collections').on('change', function (event) {
+            jQuery('#Collection').val(jQuery(event.target).val());
+        });
+    </script>
 }
 
-<div class="texts">
-    <form class="ui form" asp-action="Save" method="post">
-        <input type="hidden" asp-for="Id" />
+<div class="ui main container">
+    <div class="ui middle aligned left grid">
+        <form class="ui form large" asp-action="Save" method="post">
+            <input type="hidden" asp-for="Id" />
 
-        <div class="inline field">
-            <label>Collection</label>
-            <input asp-for="Collection" placeholder="" />
-            <select class="ui fluid dropdown existing-collections">
-                <option value=""></option>
-                @foreach (var col in Model.AvailableCollections)
-                {
-                    <option value="@col">@col</option>
-                }
-            </select>
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Collection</label>
+                <input asp-for="Collection" placeholder="" />
+                <select class="ui fluid dropdown existing-collections">
+                    <option value=""></option>
+                    @foreach (var col in Model.AvailableCollections)
+                    {
+                        <option value="@col">@col</option>
+                    }
+                </select>
+            </div>
 
-        <div class="inline field">
-            <label>Collection No</label>
-            <input asp-for="CollectionNo" placeholder="" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Collection No</label>
+                <input asp-for="CollectionNo" placeholder="" />
+            </div>
 
-        <div class="inline field">
-            <label>Title</label>
-            <input asp-for="Title" placeholder="" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Title</label>
+                <input asp-for="Title" placeholder="" />
+            </div>
 
-        <div class="inline field">
-            <label>Language</label>
-            <select class="ui fluid dropdown" asp-for="LanguageId">
-                @foreach (var language in Model.AvailableLanguages.OrderBy(x => x.Value))
-                {
-                    <option value="@language.Key">@language.Value</option>
-                }
-            </select>
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Language</label>
+                <select class="ui fluid dropdown" asp-for="LanguageId">
+                    @foreach (var language in Model.AvailableLanguages.OrderBy(x => x.Value))
+                    {
+                        <option value="@language.Key">@language.Value</option>
+                    }
+                </select>
+            </div>
 
-        <div class="inline field">
-            <label>L1 Text</label>
-            <textarea asp-for="L1Text" rows="10"></textarea>
-        </div>
+            <div class="field sixteen wide">
+                <label>L1 Text</label>
+                <textarea asp-for="L1Text" rows="10"></textarea>
+            </div>
 
-        <div class="inline field">
-            <label>Language 2</label>
-            <select class="ui fluid dropdown" asp-for="Language2Id">
-                @foreach (var language in Model.AvailableLanguages.OrderBy(x => x.Value))
-                {
-                    <option value="@language.Key">@language.Value</option>
-                }
-            </select>
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Language 2</label>
+                <select class="ui fluid dropdown" asp-for="Language2Id">
+                    @foreach (var language in Model.AvailableLanguages.OrderBy(x => x.Value))
+                    {
+                        <option value="@language.Key">@language.Value</option>
+                    }
+                </select>
+            </div>
 
-        <div class="inline field">
-            <label>L2 Text</label>
-            <textarea asp-for="L2Text" rows="10"></textarea>
-        </div>
+            <div class="field sixteen wide">
+                <label>L2 Text</label>
+                <textarea asp-for="L2Text" rows="10"></textarea>
+            </div>
 
-        <button class="ui button primary" type="submit">Submit</button>
-    </form>
+            <button name="action" value="submit" class="ui button primary" type="submit">Submit</button>
+            <button name="action" value="submit-read"class="ui button" type="submit">Submit and read</button>
+        </form>
+    </div>
 </div>

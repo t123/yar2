@@ -1,33 +1,52 @@
 ﻿@model IEnumerable<UserIndexModel>
 
-<div class="users">
-    @if (Model.Any())
-    {
-        <form class="ui form" asp-action="SignIn" method="post">
-            <h4>Use an existing profile</h4>
-            <div class="fields">
-                <div class="field">
-                    <label>Name</label>
-                    <select class="ui fluid dropdown" name="username">
-                        @foreach (var user in Model)
-                        {
-                            <option value="@user.Username">@user.Username</option>
-                        }
-                    </select>
-                </div>
-            </div>
-            <input type="submit" class="ui primary submit button" value="Use this profile" />
-        </form>
-    }
+@{ 
+    var hasProfiles = Model.Any();
+}
 
-    <form class="ui form" asp-action="CreateProfile" method="post">
-        <h4>Create a new profile</h4>
-        <div class="fields">
-            <div class="field">
-                <label>Name</label>
-                <input type="text" name="username" placeholder="Your name">
+<div class="ui main text container users">
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <div class="ui top attached tabular menu">
+                <div class="item @(hasProfiles ? "active" : "")" data-tab="existing">Existing profiles</div>
+                <div class="item @(hasProfiles ? "" : "active")" data-tab="new">Create profile</div>
+            </div>
+            <div class="ui bottom attached tab segment @(hasProfiles ? "active" : "")" data-tab="existing">
+                @if (Model.Any())
+                {
+                    <form class="ui huge form" asp-action="SignIn" method="post">
+                        <h2>Use an existing profile</h2>
+
+                        <div class="inline field">
+                            <label>Name</label>
+                            <select class="ui fluid dropdown" name="username">
+                                @foreach (var user in Model)
+                                {
+                                    <option value="@user.Username">@user.Username</option>
+                                }
+                            </select>
+                        </div>
+                        <input type="submit" class="ui primary submit button" value="Use this profile" />
+                    </form>
+                }
+            </div>
+            <div class="ui bottom attached tab segment @(hasProfiles ? "" : "active")" data-tab="new">
+                <form class="ui huge form" asp-action="CreateProfile" method="post">
+                    <h2>Create a new profile</h2>
+                    <div class="inline field">
+                        <label>Name</label>
+                        <input type="text" name="username" placeholder="Your name">
+                    </div>
+                    <input type="submit" class="ui primary submit button" value="Create" />
+                </form>
             </div>
         </div>
-        <input type="submit" class="ui primary submit button" value="Create" />
-    </form>
+    </div>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+        $('select.dropdown').dropdown();
+        $('.tabular.menu .item').tab();
+    </script>
+}

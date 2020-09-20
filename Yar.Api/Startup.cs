@@ -97,6 +97,8 @@ namespace Yar.Api
             ElectronStartup();
         }
 
+        public static BrowserWindow MainWindow = null;
+
         private async void ElectronStartup()
         {
             var options = new BrowserWindowOptions
@@ -106,11 +108,11 @@ namespace Yar.Api
                 WebPreferences = new WebPreferences { DefaultEncoding = "UTF-8" }
             };
 
-            var mainWindow = await Electron.WindowManager.CreateWindowAsync(options);
+            MainWindow = await Electron.WindowManager.CreateWindowAsync(options);
 
-            mainWindow.OnReadyToShow += () =>
+            MainWindow.OnReadyToShow += () =>
             {
-                mainWindow.Show();
+                MainWindow.Show();
             };
         }
     }

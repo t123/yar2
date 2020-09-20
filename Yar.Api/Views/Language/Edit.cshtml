@@ -9,192 +9,205 @@
     </div>
 }
 
-<div class="languages">
-    <form class="ui form" asp-action="Save" method="post">
-        <input type="hidden" asp-for="Id" />
+<div class="ui main container">
+    <div class="ui middle aligned left grid">
+        <form class="ui form large" asp-action="Save" method="post">
+            <input type="hidden" asp-for="Id" />
 
-        <div class="inline field">
-            <label>Name</label>
-            <input asp-for="Name" placeholder="Your name for the language" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Name</label>
+                <input asp-for="Name" placeholder="Your name for the language" />
+            </div>
 
-        <div class="inline field">
-            <label>Reg Ex</label>
-            <input asp-for="RegEx" placeholder="The regular expression for splitting word in a sentence. If left blank then the following default regular expression is used: [a-zA-ZÀ-ÖØ-öø-ÿĀ-ſƀ-ɏ\’\'-]+)|(\s+)|(\d+)|(__\d+__)|(<\/?[a-z][A-Z0-9]*[^>]*>)|(.)" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Reg Ex</label>
+                <input asp-for="RegEx" placeholder="The regular expression for splitting word in a sentence. If left blank then the following default regular expression is used: [a-zA-ZÀ-ÖØ-öø-ÿĀ-ſƀ-ɏ\’\'-]+)|(\s+)|(\d+)|(__\d+__)|(<\/?[a-z][A-Z0-9]*[^>]*>)|(.)" />
+            </div>
 
-        <div class="inline field">
-            <label>Translation Method</label>
-            <select class="ui fluid dropdown" asp-for="TranslationMethod">
-                <option value="None">None</option>
-                <option value="Bing">Bing</option>
-                <option value="Google">Google</option>
-                <option value="Dummy">Dummy</option>
-            </select>
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Translation Method</label>
+                <select class="ui fluid dropdown" asp-for="TranslationMethod">
+                    <option value="None">None</option>
+                    <option value="Bing">Bing</option>
+                    <option value="Google">Google</option>
+                    <option value="Dummy">Dummy</option>
+                </select>
+            </div>
 
-        <div class="inline field">
-            <label>Microsoft Cognitive Services Translation Url</label>
-            <input asp-for="BingTranslationUrl" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Microsoft Cognitive Services Translation Url</label>
+                <input asp-for="BingTranslationUrl" />
+            </div>
 
-        <div class="inline field">
-            <label>Bing Translation Key</label>
-            <input asp-for="BingTranslationKey" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Bing Translation Key</label>
+                <input asp-for="BingTranslationKey" />
+            </div>
 
-        <div class="inline field">
-            <label>Google Translate Source</label>
-            <input asp-for="GoogleTranslationSource" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Google Translate Source</label>
+                <input asp-for="GoogleTranslationSource" />
+            </div>
 
-        <div class="inline field">
-            <label>Google Translate Target</label>
-            <input asp-for="GoogleTranslationTarget" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Google Translate Target</label>
+                <input asp-for="GoogleTranslationTarget" />
+            </div>
 
-        <div class="inline field">
-            <label>Google Translate Key</label>
-            <input asp-for="GoogleTranslationKey" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Google Translate Key</label>
+                <input asp-for="GoogleTranslationKey" />
+            </div>
 
-        <div class="inline field">
-            <label>Left To Right</label>
-            <input asp-for="LeftToRight" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Left To Right</label>
+                <input asp-for="LeftToRight" />
+            </div>
 
-        <div class="inline field">
-            <label>Paged</label>
-            <input asp-for="Paged" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Paged</label>
+                <input asp-for="Paged" />
+            </div>
 
-        <div class="inline field">
-            <label>Show Spaces</label>
-            <input asp-for="Spaced" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Show Spaces</label>
+                <input asp-for="Spaced" />
+            </div>
 
-        <div class="inline field">
-            <label>Multiple Sentences</label>
-            <input asp-for="MultipleSentences" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Multiple Sentences</label>
+                <input asp-for="MultipleSentences" />
+            </div>
 
-        <div class="inline field">
-            <label>Popup or Modal</label>
-            <select class="ui fluid dropdown" asp-for="PopupModal">
-                <option value="popup">Inline Translation</option>
-                <option value="modal">Full modal</option>
-            </select>
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Popup or Modal</label>
+                <select class="ui fluid dropdown" asp-for="PopupModal">
+                    <option value="popup">Inline Translation</option>
+                    <option value="modal">Full modal</option>
+                </select>
+            </div>
 
-        <div class="inline field">
-            <label>Copy to Clipboard</label>
-            <input asp-for="CopyClipboard" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Copy to Clipboard</label>
+                <input asp-for="CopyClipboard" />
+            </div>
 
-        <div class="inline field">
-            <label>Show definitions on hover</label>
-            <input asp-for="ShowDefinitions" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Show definitions on hover</label>
+                <input asp-for="ShowDefinitions" />
+            </div>
 
-        <div class="inline field">
-            <label>Show term statistics</label>
-            <input asp-for="ShowTermStatistics" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Show term statistics</label>
+                <input asp-for="ShowTermStatistics" />
+            </div>
 
-        <div class="inline field">
-            <label>Highlight the most common terms</label>
-            <input asp-for="MostCommonTerms" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Highlight the most common terms</label>
+                <input asp-for="MostCommonTerms" />
+            </div>
 
-        <div class="inline field">
-            <label>URL for Google Translate</label>
-            <input asp-for="GoogleTranslateUrl" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>URL for Google Translate</label>
+                <input asp-for="GoogleTranslateUrl" />
+            </div>
 
-        <div class="inline field">
-            <label>Forvo language code</label>
-            <input asp-for="ForvoLanguageCode" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>URL for DeepL</label>
+                <input asp-for="DeepLUrl" />
+            </div>
 
-        <div class="inline field">
-            <label>Max Fragment Parse Length</label>
-            <input asp-for="MaxFragmentParseLength" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Forvo language code</label>
+                <input asp-for="ForvoLanguageCode" />
+            </div>
 
-        <div class="inline field">
-            <label>Custom dictionary URL</label>
-            <textarea asp-for="CustomDictionaryUrl" rows="4"></textarea>
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Max Fragment Parse Length</label>
+                <input asp-for="MaxFragmentParseLength" />
+            </div>
 
-        <div class="inline field">
-            <label>Open custom dictionary automatically</label>
-            <input asp-for="CustomDictionaryAuto" />
-        </div>
+            <div class="field sixteen wide">
+                <label>Custom dictionary URL</label>
+                <textarea asp-for="CustomDictionaryUrl" rows="4"></textarea>
+            </div>
 
-        <div class="inline field">
-            <label>Centre modal</label>
-            <input asp-for="CentreModal" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Open custom dictionary automatically</label>
+                <input asp-for="CustomDictionaryAuto" />
+            </div>
 
-        <div class="inline field">
-            <label>Enable Leitner</label>
-            <input asp-for="EnableLeitner" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Centre modal</label>
+                <input asp-for="CentreModal" />
+            </div>
 
-        <div class="inline field">
-            <label>Leitner Multiplier</label>
-            <input asp-for="LeitnerMultiplier" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>State On Open</label>
+                <select class="ui fluid dropdown" asp-for="StateOnOpen">
+                    <option value="NotSeen">None</option>
+                    <option value="Unknown">Unknown</option>
+                    <option value="Known">Known</option>
+                    <option value="Ignore">Ignore</option>
+                </select>
+            </div>
 
-        <div class="inline field">
-            <label>State On Open</label>
-            <select class="ui fluid dropdown" asp-for="StateOnOpen">
-                <option value="NotSeen">None</option>
-                <option value="Unknown">Unknown</option>
-                <option value="Known">Known</option>
-                <option value="Ignore">Ignore</option>
-            </select>
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Single View Percentage</label>
+                <input asp-for="SingleViewPercentage" />
+            </div>
 
-        <div class="inline field">
-            <label>Single View Percentage</label>
-            <input asp-for="SingleViewPercentage" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Single Line Height</label>
+                <input asp-for="SingleLineHeight" />
+            </div>
 
-        <div class="inline field">
-            <label>Single Line Height</label>
-            <input asp-for="SingleLineHeight" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Single Font Size</label>
+                <input asp-for="SingleFontSize" />
+            </div>
 
-        <div class="inline field">
-            <label>Single Font Size</label>
-            <input asp-for="SingleFontSize" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Parallel Line Height</label>
+                <input asp-for="ParallelLineHeight" />
+            </div>
 
-        <div class="inline field">
-            <label>Parallel Line Height</label>
-            <input asp-for="ParallelLineHeight" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Parallel Font Size</label>
+                <input asp-for="ParallelFontSize" />
+            </div>
 
-        <div class="inline field">
-            <label>Parallel Font Size</label>
-            <input asp-for="ParallelFontSize" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Font Color</label>
+                <input asp-for="FontColor" />
+            </div>
 
-        <div class="inline field">
-            <label>Font Color</label>
-            <input asp-for="FontColor" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Background Color</label>
+                <input asp-for="BackgroundColor" />
+            </div>
 
-        <div class="inline field">
-            <label>Background Color</label>
-            <input asp-for="BackgroundColor" />
-        </div>
+            <div class="inline field sixteen wide">
+                <label>Font Family</label>
+                <input asp-for="FontFamily" />
+            </div>
 
-        <div class="inline field">
-            <label>Font Family</label>
-            <input asp-for="FontFamily" />
-        </div>
-        <button class="ui button primary" type="submit">Submit</button>
-    </form>
+            <div class="inline field sixteen wide">
+                <label>Highlight lines</label>
+                <select class="ui fluid dropdown" asp-for="HighlightLines">
+                    <option value="None">None</option>
+                    <option value="Both">Both</option>
+                    <option value="Single">Single</option>
+                    <option value="Parallel">Parallel</option>
+                </select>
+            </div>
+
+            <div class="inline field sixteen wide">
+                <label>Highlight lines colour</label>
+                <input asp-for="HighlightLinesColour" />
+            </div>
+
+            <button class="ui button primary" type="submit">Submit</button>
+        </form>
+    </div>
 </div>

@@ -47,11 +47,10 @@ namespace Yar.Api.Models
                     HasGoogle = !string.IsNullOrEmpty(text.Language?.GetOption<string>(LanguageOptions.GoogleTranslationKey, "")),
                     ForvoLanguageCode = text.Language?.GetOption<string>(LanguageOptions.ForvoLanguageCode, ""),
                     GoogleTranslateUrl = text.Language?.GetOption<string>(LanguageOptions.GoogleTranslateUrl, ""),
+                    DeepLUrl = text.Language?.GetOption<string>(LanguageOptions.DeepLUrl, ""),
                     MostCommonTerms = text.Language?.GetOption<int>(LanguageOptions.MostCommonTerms, 20) ?? 20,
                     CustomDictionaryAuto = text.Language?.GetOption<bool>(LanguageOptions.CustomDictionaryAuto, false) ?? false,
                     CentreModal = text.Language?.GetOption<bool>(LanguageOptions.CentreModal, false) ?? false,
-                    EnableLeitner = text.Language?.GetOption<bool>(LanguageOptions.EnableLeitner, false) ?? false,
-                    LeitnerMultiplier = text.Language?.GetOption<decimal>(LanguageOptions.LeitnerMultiplier, 2.05m) ?? 2.05m,
                     StateOnOpen = text.Language?.GetOption<string>(LanguageOptions.StateOnOpen, "Unknown") ?? "Unknown",
                     SingleViewPercentage = text.Language?.GetOption<decimal>(LanguageOptions.SingleViewPercentage, 45m) ?? 45m,
                     SingleLineHeight = text.Language?.GetOption<decimal>(LanguageOptions.SingleLineHeight, 1.2m) ?? 1.2m,
@@ -61,6 +60,8 @@ namespace Yar.Api.Models
                     FontColor = text.Language?.GetOption<string>(LanguageOptions.FontColor, "#000"),
                     BackgroundColor = text.Language?.GetOption<string>(LanguageOptions.BackgroundColor, "#f4f4eb"),
                     FontFamily = text.Language?.GetOption<string>(LanguageOptions.FontFamily, @"""Times New Roman"", Times, serif"),
+                    HighlightLines = text.Language?.GetOption<string>(LanguageOptions.HighlightLines, LanguageOptions.HighlightLinesDefault),
+                    HighlightLinesColour = text.Language?.GetOption<string>(LanguageOptions.HighlightLinesColour, LanguageOptions.HighlightLinesColourDefault),
                 }
             };
 
@@ -92,9 +93,11 @@ namespace Yar.Api.Models
         public bool HasGoogle { get; set; }
         public bool HasBing { get; set; }
         public bool HasGoogleTranslate => !string.IsNullOrWhiteSpace(GoogleTranslateUrl);
+        public bool HasDeepL => !string.IsNullOrWhiteSpace(DeepLUrl);
         public bool HasForvo => !string.IsNullOrWhiteSpace(ForvoLanguageCode);
         public bool HasCustomDictionary => CustomDictionaryUrl.Length > 0;
         public string GoogleTranslateUrl { get; set; }
+        public string DeepLUrl { get; set; }
         public string ForvoLanguageCode { get; set; }
         public int MostCommonTerms { get; set; }
         public string[] CustomDictionaryUrl { get; set; }
@@ -115,5 +118,7 @@ namespace Yar.Api.Models
         public string FontColor { get; set; }
         public string BackgroundColor { get; set; }
         public string FontFamily { get; set; }
+        public string HighlightLines { get; set; }
+        public string HighlightLinesColour { get; set; }
     }
 }

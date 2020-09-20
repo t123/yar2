@@ -187,19 +187,24 @@ export class Reader {
         $(document).on('keydown', null, null, event => {
             // TODO
             if (this.modal.isModalVisible()) {
-                if (event.which === 13) {
+                if (event.ctrlKey && (event.keyCode === 13 || event.keyCode === 10)) {
+                    this.modal.addNewline();
+                    return;
+                }
+
+                if (event.keyCode === 13) {
                     event.preventDefault();
                     this.modalSave();
                     this.modal.hideModal();
                     return;
                 }
 
-                if (event.which === 27) {
+                if (event.keyCode === 27) {
                     this.closeModal();
                     return;
                 }
 
-                if (event.which === 40) {
+                if (event.keyCode === 40) {
                     event.preventDefault();
                     this.modal.toggleShowMore();
                     return;
@@ -284,6 +289,24 @@ export class Reader {
             $tdActive.css('border-right', `1px solid ${this.text.options.fontColor}`);
         }
 
+        if ((this.text.options.highlightLines === 'Both' || this.text.options.highlightLines === 'Single') && !this.text.asParallel) {
+            $('table.reading-table.single tr').on('mouseenter', (event) => {
+                $(event.currentTarget).css('background-color', this.text.options.highlightLinesColour);
+            });
+
+            $('table.reading-table.single tr').on('mouseleave', () => {
+                $('table.reading-table.single tr').css('background-color', '');
+            });
+        } else if ((this.text.options.highlightLines === 'Both' || this.text.options.highlightLines === 'Parallel') && this.text.asParallel) {
+            $('table.reading-table.parallel tr').on('mouseenter', (event) => {
+                $(event.currentTarget).css('background-color', this.text.options.highlightLinesColour);
+            });
+
+            $('table.reading-table.parallel tr').on('mouseleave', () => {
+                $('table.reading-table.parallel tr').css('background-color', '');
+            });
+        }
+
         $table.css('background-color', this.text.options.backgroundColor);
         $pager.css('background-color', this.text.options.backgroundColor);
     }
@@ -309,8 +332,7 @@ export class Reader {
         const modalData = this.modal.getData();
 
         if (modalData.canUndo) {
-            const phrase = this.selectedPhrase.getPhrase();
-            this.api.undo(this.modal.getData().uuid);
+            this.api.undo(this.modal.getData().uuid).then(response => this.onUndo(response));
         }
 
         this.modal.hideModal();
@@ -336,8 +358,13 @@ export class Reader {
             return;
         }
 
-        if (anchor.hasClass('translate')) {
+        if (anchor.hasClass('translate-google')) {
             window.open(`${this.text.options.googleTranslateUrl}${this.selectedPhrase.getSentence()}`, 'googletranslate');
+            return;
+        }
+
+        if (anchor.hasClass('translate-deepl')) {
+            window.open(`${this.text.options.deepLUrl}${this.selectedPhrase.getSentence()}`, 'deepl');
             return;
         }
 
@@ -383,7 +410,17 @@ export class Reader {
 
         if (Helper.elementIsTerm($target)) {
             const native = $target.data('lower');
-            (<any>navigator).clipboard.writeText(native);
+            this.copyToClipboard(native);
+            let sentence = Helper.getSentence($target);
+
+            if (this.text.options.hasGoogleTranslate) {
+                window.open(`${this.text.options.googleTranslateUrl}${sentence}`, 'googletranslate');
+            }
+
+            if (this.text.options.hasDeepL) {
+                window.open(`${this.text.options.deepLUrl}${sentence}`, 'deepl');
+            }
+
             return false;
         }
     }
@@ -404,15 +441,22 @@ export class Reader {
         }
 
         if (this.text.options.showTermStatistics) {
+            const commonness = $target.attr('data-frequency-commonness');
+            const occurrences = $target.attr('data-occurrences');
+            const frequencyNotseen = $target.attr('data-frequency-notseen');
+            const frequencyTotal = $target.attr('data-frequency-total');
+
+            if (Helper.isUndefined(commonness) || Helper.isUndefined(occurrences) || Helper.isUndefined(frequencyNotseen) || Helper.isUndefined(frequencyTotal)) {
+                return;
+            }
+
             if (display.length > 0) {
                 display += '<br />';
             }
 
-            const commonness = $target.attr('data-frequency-commonness');
-
-            display += `${$target.attr('data-occurrences')} occurrences`;
-            display += ` (${$target.attr('data-frequency-notseen')}% / `;
-            display += `${$target.attr('data-frequency-total')}%`;
+            display += `${occurrences} occurrences`;
+            display += ` (${frequencyNotseen}% / `;
+            display += `${frequencyTotal}%`;
 
             if (commonness) {
                 display += ` / ${commonness} `;

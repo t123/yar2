@@ -47,6 +47,9 @@
         public const string GoogleTranslateUrl = "GoogleTranslateUrl";
         public const string GoogleTranslateUrlDefault = "";
 
+        public const string DeepLUrl = "DeepLUrl";
+        public const string DeepLUrlDefault = "";
+
         public const string MaxFragmentParseLength = "MaxFragmentParseLength";
         public const int MaxFragmentParseLengthDefault = 3;
 
@@ -67,12 +70,6 @@
 
         public const string CustomDictionaryAuto = "CustomDictionaryAuto";
         public const bool CustomDictionaryAutoDefault = false;
-
-        public const string EnableLeitner = "EnableLeitner";
-        public const bool EnableLeitnerDefault = false;
-
-        public const string LeitnerMultiplier = "LeitnerMultiplier";
-        public const decimal LeitnerMultiplierDefault = 2.05m;
 
         public const string StateOnOpen = "StateOnOpen";
         public const string StateOnOpenDefault = "";
@@ -100,5 +97,11 @@
 
         public const string FontFamily = "FontFamily";
         public const string FontFamilyDefault = @"""Times New Roman"", Times, serif";
+
+        public const string HighlightLines = "HighlightLines";
+        public const string HighlightLinesDefault = @"Parallel";
+
+        public const string HighlightLinesColour = "HighlightLinesColour";
+        public const string HighlightLinesColourDefault = @"#e0e0d7";
     }
 }

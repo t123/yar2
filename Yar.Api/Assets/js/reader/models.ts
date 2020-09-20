@@ -140,6 +140,10 @@ export interface LanguageOptionsModel
 	fontColor: string;
 	backgroundColor: string;
 	fontFamily: string;
+	hasDeepL: boolean;
+	deepLUrl: string;
+	highlightLines: string;
+	highlightLinesColour: string;
 }
 export interface TextViewModel
 {

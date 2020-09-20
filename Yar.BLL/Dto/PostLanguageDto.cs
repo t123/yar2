@@ -12,6 +12,7 @@
         public string GoogleTranslationSource { get; set; }
         public string GoogleTranslationTarget { get; set; }
         public string GoogleTranslateUrl { get; set; }
+        public string DeepLUrl { get; set; }
         public string ForvoLanguageCode { get; set; }
         public bool LeftToRight { get; set; }
         public bool Paged { get; set; }
@@ -37,5 +38,7 @@
         public string FontColor { get; set; }
         public string BackgroundColor { get; set; }
         public string FontFamily { get; set; }
+        public string HighlightLines { get; set; }
+        public string HighlightLinesColour { get; set; }
     }
 }

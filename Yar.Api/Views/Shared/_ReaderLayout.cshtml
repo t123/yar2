@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YAR</title>
+    <title>YAR - @Model.Title</title>
     <link rel="stylesheet" type="text/css" href="~/SemanticUI/semantic.css">
     <link rel="stylesheet" type="text/css" href="~/css/site.css">
     <link rel="stylesheet" type="text/css" href="~/css/reader.css">
@@ -40,6 +40,14 @@
                 {
                     <a asp-controller="Read" asp-action="Index" asp-route-textId="@Model.TextId" asp-route-asParallel="true" class="item">Parallel</a>
                 }
+            }
+            @if (Model.PrevTextId.HasValue)
+            {
+                <a asp-controller="Read" asp-action="Index" asp-route-textId="@Model.PrevTextId.Value" asp-route-asParallel="@Model.AsParallel" class="item">Previous</a>
+            }
+            @if (Model.NextTextId.HasValue)
+            {
+                <a asp-controller="Read" asp-action="Index" asp-route-textId="@Model.NextTextId.Value" asp-route-asParallel="@Model.AsParallel" class="item">Next</a>
             }
         </div>
     </div>

@@ -11,8 +11,7 @@
         <div class="translation">
             <input type="text" value="" name="translation" placeholder="translation" title="The translation of the word" />
             <div class="links">
-                <a class="translate" title="Open sentence in Google Translate">S</a>
-                <a class="forvo" title="Search for word in Forvo">F</a>
+                <a class="forvo" title="Search for word in Forvo">Forvo</a>
                 <a class="google" title="Query Google Translate for new translation">G</a>
                 <a class="bing" title="Query Microsoft for new translation">M</a>
                 <div class="custom-links">
@@ -25,12 +24,17 @@
                 <input type="text" value="" name="phrase-base" placeholder="base phrase" />
             </div>
             <div class="notes">
-                <textarea name="notes" placeholder="notes"></textarea>
+                <textarea name="notes" placeholder="notes, Ctrl+Enter for a new line"></textarea>
             </div>
             <div class="states">
                 <input type="radio" value="notknown" name="state" />Unknown
                 <input type="radio" value="known" name="state" />Known
                 <input type="radio" value="ignored" name="state" />Ignore
+
+                <div class="links2">
+                    <a class="translate-google" title="Open sentence in Google Translate">Google</a>
+                    <a class="translate-deepl" title="Open sentence in DeepL">DeepL</a>
+                </div>
             </div>
             <div class="footer">
                 <button class="save" title="Shortcut: Enter/Return">Save</button>

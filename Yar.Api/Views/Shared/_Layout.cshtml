@@ -27,7 +27,7 @@
 
         @RenderSection("secondaryMenu", required: false)
 
-        <div class="ui main text container yar-container">
+        <div class="yar-container">
             @RenderBody()
         </div>
 
@@ -42,7 +42,6 @@
             </div>
         </div>
     </div>
-    @RenderSection("body", required: false)
 
     <!-- Insert this line above script imports  -->
     <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
@@ -50,9 +49,10 @@
     <!-- normal script imports etc  -->
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/SemanticUI/semantic.js"></script>
-    @RenderSection("scripts", required: false)
 
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

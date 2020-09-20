@@ -34,6 +34,38 @@ namespace Yar.BLL
                 .Where(x => x.User.Id == userId && x.Id == textId).SingleOrDefault();
         }
 
+        public (Text Previous, Text Next) GetPreviousAndNext(Text text)
+        {
+            if (!string.IsNullOrEmpty(text.Collection) && text.CollectionNo.HasValue)
+            {
+                var prevText = _repository
+                    .Get()
+                    .Where(x =>
+                        x.User.Id == text.User.Id &&
+                        x.Language.Id == text.Language.Id &&
+                        x.Collection == text.Collection &&
+                        x.CollectionNo < text.CollectionNo
+                    )
+                    .OrderByDescending(x => x.CollectionNo)
+                    .FirstOrDefault();
+
+                var nextText = _repository
+                    .Get()
+                    .Where(x =>
+                        x.User.Id == text.User.Id &&
+                        x.Language.Id == text.Language.Id &&
+                        x.Collection == text.Collection &&
+                        x.CollectionNo > text.CollectionNo
+                    )
+                    .OrderBy(x => x.CollectionNo)
+                    .FirstOrDefault();
+
+                return (prevText, nextText);
+            }
+
+            return (null, null);
+        }
+
         public IEnumerable<string> GetCollections(int userId, int languageId)
         {
             var collections = _repository.Get().Where(x => x.User.Id == userId);
@@ -75,7 +107,7 @@ namespace Yar.BLL
             _repository.Save(text);
         }
 
-        public void Save(int userId, PostTextDto text)
+        public Text Save(int userId, PostTextDto text)
         {
             var user = _userRepository.GetById(userId);
 
@@ -144,6 +176,8 @@ namespace Yar.BLL
             obj.NotSeen = output.NotSeen;
 
             _repository.Save(obj);
+
+            return obj;
         }
     }
 }

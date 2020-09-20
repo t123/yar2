@@ -26,8 +26,21 @@ namespace Yar.Api.Controllers
         public IActionResult Index(int textId, bool asParallel)
         {
             var text = _uow.TextService.Get(UserId, textId);
+            var other = _uow.TextService.GetPreviousAndNext(text);
 
-            return View(new ReadIndexModel(textId, asParallel, text.Language.Id, text.IsParallel));
+            var title = text.Title;
+
+            if (!string.IsNullOrEmpty(text.Collection))
+            {
+                title += $" - {text.Collection}";
+            }
+
+            if (text.CollectionNo.HasValue)
+            {
+                title += $" - {text.CollectionNo.Value}";
+            }
+
+            return View(new ReadIndexModel(textId, asParallel, text.Language.Id, text.IsParallel, other.Previous?.Id, other.Next?.Id, title));
         }
 
         [HttpGet]
@@ -44,7 +57,7 @@ namespace Yar.Api.Controllers
 
         [HttpPost]
         [Route("undo")]
-        public IActionResult Undo([FromBody]UndoRequestModel model)
+        public IActionResult Undo([FromBody] UndoRequestModel model)
         {
             if (!Guid.TryParse(model.Uuid, out Guid uuid))
             {
@@ -70,7 +83,7 @@ namespace Yar.Api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public IActionResult Save([FromBody]SavePhraseRequestModel model)
+        public IActionResult Save([FromBody] SavePhraseRequestModel model)
         {
             var word = _uow.WordService.Get(UserId, model.LanguageId, model.Phrase);
 
@@ -111,7 +124,7 @@ namespace Yar.Api.Controllers
 
         [HttpPost]
         [Route("retranslate")]
-        public IActionResult Retranslate([FromBody]TranslationRequestModel model)
+        public IActionResult Retranslate([FromBody] TranslationRequestModel model)
         {
             var word = _uow.WordService.Get(UserId, model.LanguageId, model.Phrase);
             var language = _uow.LanguageService.Get(UserId, model.LanguageId);
@@ -131,7 +144,7 @@ namespace Yar.Api.Controllers
 
         [HttpPost]
         [Route("translate")]
-        public IActionResult Translate([FromBody]TranslationRequestModel model)
+        public IActionResult Translate([FromBody] TranslationRequestModel model)
         {
             var word = _uow.WordService.Get(UserId, model.LanguageId, model.Phrase);
             var language = _uow.LanguageService.Get(UserId, model.LanguageId);

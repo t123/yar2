@@ -107,31 +107,37 @@ $pagerHeight: 80px;
         .translation {
             display: flex;
             align-items: center;
+        }
 
-            .links {
-                font-size: smaller;
-                white-space: nowrap;
-                margin: 0 10px;
+        .links, .links2 {
+            font-size: smaller;
+            white-space: nowrap;
+            margin: 0 10px;
 
-                .custom-links {
-                    display: inline-block;
+            .custom-links {
+                display: inline-block;
+            }
+
+            a {
+                display: inline-block;
+                margin: 0 1px;
+                color: white;
+
+                &:hover {
+                    color: white;
+                    text-decoration: underline;
+                    cursor: pointer;
                 }
 
-                a {
-                    display: inline-block;
-                    margin: 0 1px;
-
-                    &:hover {
-                        color: white;
-                        text-decoration: underline;
-                        cursor: pointer;
-                    }
-
-                    &.hidden {
-                        display: none;
-                    }
+                &.hidden {
+                    display: none;
                 }
             }
+        }
+
+        .links2 {
+            font-size: revert;
+            display: inline-block;
         }
 
         .states {
@@ -233,10 +239,6 @@ $pagerHeight: 80px;
             td:first-child {
                 border-right: 0;
             }
-        }
-
-        &:hover {
-            background-color: rgb(224, 224, 215);
         }
 
         td {

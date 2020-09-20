@@ -16,6 +16,7 @@ namespace Yar.Api.Models
         public string GoogleTranslationTarget { get; set; }
         public string GoogleTranslationKey { get; set; }
         public string GoogleTranslateUrl { get; set; }
+        public string DeepLUrl { get; set; }
         public string ForvoLanguageCode { get; set; }
         public bool LeftToRight { get; set; }
         public bool Paged { get; set; }
@@ -30,8 +31,6 @@ namespace Yar.Api.Models
         public string CustomDictionaryUrl { get; set; }
         public bool CustomDictionaryAuto { get; set; }
         public bool CentreModal { get; set; }
-        public bool EnableLeitner { get; set; }
-        public decimal LeitnerMultiplier { get; set; }
         public string StateOnOpen { get; set; }
         public decimal SingleViewPercentage { get; set; }
         public decimal SingleLineHeight { get; set; }
@@ -41,6 +40,8 @@ namespace Yar.Api.Models
         public string FontColor { get; set; }
         public string BackgroundColor { get; set; }
         public string FontFamily { get; set; }
+        public string HighlightLines { get; set; }
+        public string HighlightLinesColour { get; set; }
 
         public static LanguageViewModel From(Language language)
         {
@@ -66,14 +67,13 @@ namespace Yar.Api.Models
                     ShowDefinitions = LanguageOptions.ShowDefinitionsDefault,
                     ForvoLanguageCode = LanguageOptions.ForvoLanguageCodeDefault,
                     GoogleTranslateUrl = LanguageOptions.GoogleTranslateUrlDefault,
+                    DeepLUrl = LanguageOptions.DeepLUrlDefault,
                     MaxFragmentParseLength = LanguageOptions.MaxFragmentParseLengthDefault,
                     ShowTermStatistics = LanguageOptions.ShowTermStatisticsDefault,
                     MostCommonTerms = LanguageOptions.MostCommonTermsDefault,
                     CustomDictionaryUrl = LanguageOptions.CustomDictionaryUrlDefault,
                     CustomDictionaryAuto = LanguageOptions.CustomDictionaryAutoDefault,
                     CentreModal = LanguageOptions.CentreModalDefault,
-                    EnableLeitner = LanguageOptions.EnableLeitnerDefault,
-                    LeitnerMultiplier = LanguageOptions.LeitnerMultiplierDefault,
                     StateOnOpen = LanguageOptions.StateOnOpenDefault,
                     ParallelFontSize = LanguageOptions.ParallelFontSizeDefault,
                     ParallelLineHeight = LanguageOptions.ParallelLineHeightDefault,
@@ -83,6 +83,8 @@ namespace Yar.Api.Models
                     FontColor = LanguageOptions.FontColor,
                     BackgroundColor = LanguageOptions.BackgroundColor,
                     FontFamily = LanguageOptions.FontFamily,
+                    HighlightLines = LanguageOptions.HighlightLinesDefault,
+                    HighlightLinesColour = LanguageOptions.HighlightLinesColourDefault,
                 };
             }
 
@@ -106,14 +108,13 @@ namespace Yar.Api.Models
                 ShowDefinitions = language.GetOption<bool>(LanguageOptions.ShowDefinitions, LanguageOptions.ShowDefinitionsDefault),
                 ForvoLanguageCode = language.GetOption<string>(LanguageOptions.ForvoLanguageCode, LanguageOptions.ForvoLanguageCodeDefault),
                 GoogleTranslateUrl = language.GetOption<string>(LanguageOptions.GoogleTranslateUrl, LanguageOptions.GoogleTranslateUrlDefault),
+                DeepLUrl = language.GetOption<string>(LanguageOptions.DeepLUrl, LanguageOptions.DeepLUrlDefault),
                 MaxFragmentParseLength = language.GetOption<int>(LanguageOptions.MaxFragmentParseLength, LanguageOptions.MaxFragmentParseLengthDefault),
                 ShowTermStatistics = language.GetOption<bool>(LanguageOptions.ShowTermStatistics, LanguageOptions.ShowTermStatisticsDefault),
                 MostCommonTerms = language.GetOption<int>(LanguageOptions.MostCommonTerms, LanguageOptions.MostCommonTermsDefault),
                 CustomDictionaryAuto = language.GetOption<bool>(LanguageOptions.CustomDictionaryAuto, LanguageOptions.CustomDictionaryAutoDefault),
                 CustomDictionaryUrl = "",
                 CentreModal = language.GetOption<bool>(LanguageOptions.CentreModal, LanguageOptions.CentreModalDefault),
-                EnableLeitner = language.GetOption<bool>(LanguageOptions.EnableLeitner, false),
-                LeitnerMultiplier = language.GetOption<decimal>(LanguageOptions.LeitnerMultiplier, 2.05m),
                 StateOnOpen = language.GetOption<string>(LanguageOptions.StateOnOpen, "Unknown") ?? "Unknown",
                 SingleViewPercentage = language.GetOption<decimal>(LanguageOptions.SingleViewPercentage, 45m),
                 SingleLineHeight = language.GetOption<decimal>(LanguageOptions.SingleLineHeight, 1.2m),
@@ -123,6 +124,8 @@ namespace Yar.Api.Models
                 FontColor = language.GetOption<string>(LanguageOptions.FontColor, "#000"),
                 BackgroundColor = language.GetOption<string>(LanguageOptions.BackgroundColor, "#f4f4eb"),
                 FontFamily = language.GetOption<string>(LanguageOptions.FontFamily, @"""Times New Roman"", Times, serif"),
+                HighlightLines = language.GetOption<string>(LanguageOptions.HighlightLines, LanguageOptions.HighlightLinesDefault),
+                HighlightLinesColour = language.GetOption<string>(LanguageOptions.HighlightLinesColour, LanguageOptions.HighlightLinesColourDefault),
             };
 
             var dictionaries = language.GetOption<string>(LanguageOptions.CustomDictionaryUrl, null);
