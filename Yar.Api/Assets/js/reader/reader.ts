@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import { TextReadModel, ReadWordResponseModel, UndoResponseModel, RetranslateResponseModel, UndoRequestModel, TranslationRequestModel, SavePhraseRequestModel } from './models';
+import { TextReadModel, ReadWordResponseModel, UndoResponseModel, RetranslateResponseModel, UndoRequestModel, TranslationRequestModel, SavePhraseRequestModel, ChangePhraseStateRequestModel } from './models';
 import { MouseTracking } from './mouse-tracking';
 import { Modal } from './modal';
 import { Pager } from './pager';
@@ -94,6 +94,24 @@ class Api {
         };
 
         return fetch(`/read/save`,
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(model)
+            })
+            .then(response => response.json());
+    }
+
+    public cycleState(phrase: string): Promise<ReadWordResponseModel> {
+        let model: ChangePhraseStateRequestModel = {
+            languageId: this.text.languageId,
+            phrase: phrase
+        };
+
+        return fetch(`/read/updatestate`,
             {
                 method: 'POST',
                 headers: {
@@ -479,10 +497,16 @@ export class Reader {
     }
 
     private eventTermOnMouseDown(event: JQueryEventObject): void {
+        if (event.which === 2 || event.button === 4) {
+            this.mouseTracking.middle = true;
+            return;
+        }
+
         if (event.which !== 1) {
             return;
         }
 
+        this.mouseTracking.middle = false;
         this.mouseTracking.down = true;
         this.mouseTracking.dragging = false;
         this.mouseTracking.originalSpan = null;
@@ -490,6 +514,7 @@ export class Reader {
 
     private eventTermOnMouseMove(event: JQueryEventObject): void {
         if (event.which === 1 && this.mouseTracking.down) {
+            this.mouseTracking.middle = false;
             this.mouseTracking.down = true;
             this.mouseTracking.dragging = true;
 
@@ -504,6 +529,27 @@ export class Reader {
     }
 
     private eventTermOnMouseUp(event: JQueryEventObject): void {
+        if (event.which === 2 || event.button === 4) {
+            this.mouseTracking.middle = false;
+            const $element: JQuery = this.getEventTarget(event);
+
+            if (!Helper.elementIsTerm($element) || Helper.isFragment($element)) {
+                return;
+            }
+
+            var phrase = $element.data('lower');
+            this.api.cycleState(phrase)
+                .then(response => {
+                    this.selectedPhrase.select($element);
+                    this.onPhraseSavedResponse(response);
+                    this.selectedPhrase.deselect();
+                }).catch(reason => {
+                    console.log(reason);
+                });
+
+            return;
+        }
+
         if (event.which !== 1) {
             return;
         }

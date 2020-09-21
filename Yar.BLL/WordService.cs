@@ -133,7 +133,7 @@ namespace Yar.BLL
         {
             var language = _languageRepository.GetById(word.LanguageId);
             WordState initialState;
-            if(!Enum.TryParse(language.GetOption<string>(LanguageOptions.StateOnOpen), true, out initialState))
+            if (!Enum.TryParse(language.GetOption<string>(LanguageOptions.StateOnOpen), true, out initialState))
             {
                 initialState = WordState.NotKnown;
             }
@@ -154,6 +154,29 @@ namespace Yar.BLL
             AddSentence(obj, language, word.Sentence);
 
             return CreateWord(userId, obj);
+        }
+
+        public Word CycleState(int userId, WordStateUpdateDto word)
+        {
+            var obj = GetById(userId, word.Id);
+
+            if (obj == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            switch (obj.State)
+            {
+                //case WordState.Known: obj.State = WordState.NotSeen; break;
+                //case WordState.NotSeen: obj.State = WordState.NotKnown; break;
+                //case WordState.NotKnown: obj.State = WordState.Known; break;
+
+                case WordState.Known: obj.State = WordState.NotKnown; break;
+                case WordState.NotKnown: obj.State = WordState.Known; break;
+                default: break;
+            }
+
+            return UpdateWord(userId, obj);
         }
 
         public Word Save(int userId, WordCreateDto word)

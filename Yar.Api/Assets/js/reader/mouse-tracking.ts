@@ -1,5 +1,6 @@
 export class MouseTracking {
     private _down: boolean;
+    private _middle: boolean;
     private _dragging: boolean;
     private _$originalSpan: JQuery | null;
 
@@ -7,6 +8,14 @@ export class MouseTracking {
         this.down = down;
         this.dragging = dragging;
         this.originalSpan = $originalSpan;
+    }
+
+    get middle(): boolean {
+        return this._middle;
+    }
+
+    set middle(value: boolean) {
+        this._middle = value;
     }
 
     get down(): boolean {

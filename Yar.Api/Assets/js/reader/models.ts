@@ -195,3 +195,8 @@ export interface WordIndexModel
 	sentenceCount: number;
 	sentences: SentenceIndexModel[];
 }
+
+export interface ChangePhraseStateRequestModel {
+	languageId: number;
+	phrase: string;
+}

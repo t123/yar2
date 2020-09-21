@@ -123,6 +123,27 @@ namespace Yar.Api.Controllers
         }
 
         [HttpPost]
+        [Route("updatestate")]
+        public IActionResult UpdateState([FromBody] ChangePhraseStateRequestModel model)
+        {
+            var word = _uow.WordService.Get(UserId, model.LanguageId, model.Phrase);
+
+            if (word == null)
+            {
+                return NotFound();
+            }
+
+            var updateWord = new WordStateUpdateDto
+            {
+                Id = word.Id
+            };
+
+            var updated = _uow.WordService.CycleState(UserId, updateWord);
+
+            return Ok(CreateWordResponseModel(updated));
+        }
+
+        [HttpPost]
         [Route("retranslate")]
         public IActionResult Retranslate([FromBody] TranslationRequestModel model)
         {
