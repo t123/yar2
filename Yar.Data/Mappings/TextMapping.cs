@@ -24,6 +24,7 @@ namespace Yar.Data
             Map(m => m.Known);
             Map(m => m.NotKnown);
             Map(m => m.Ignored);
+            Map(m => m.IsArchived);
         }
     }
 }

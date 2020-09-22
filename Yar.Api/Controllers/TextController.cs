@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography.X509Certificates;
 using Yar.Api.Models;
 using Yar.BLL;
 using Yar.BLL.Dto;
@@ -41,6 +39,8 @@ namespace Yar.Api.Controllers
             var texts = _uow
                 .TextService
                 .Get(UserId);
+
+            bool hasArchived = false;
 
             if (!string.IsNullOrWhiteSpace(model?.Filter))
             {
@@ -79,6 +79,19 @@ namespace Yar.Api.Controllers
                                     }
                                     break;
 
+                                case "ARCHIVE":
+                                case "ARCHIVED":
+                                    hasArchived = true;
+                                    if (split[1].ToUpper() == "YES")
+                                    {
+                                        texts = texts.Where(x => x.IsArchived);
+                                    }
+                                    else if (split[1].ToUpper() == "NO")
+                                    {
+                                        texts = texts.Where(x => !x.IsArchived);
+                                    }
+                                    break;
+
                                 case "READ":
                                     if (split[1].ToUpper() == "YES")
                                     {
@@ -105,6 +118,11 @@ namespace Yar.Api.Controllers
                         x.Collection.Contains(term, StringComparison.InvariantCultureIgnoreCase)
                     );
                 }
+            }
+
+            if (!hasArchived)
+            {
+                texts = texts.Where(x => !x.IsArchived);
             }
 
             texts = texts
@@ -159,6 +177,24 @@ namespace Yar.Api.Controllers
         public IActionResult Delete(int textId)
         {
             _uow.TextService.Delete(UserId, textId);
+
+            return Ok("Index");
+        }
+
+        [HttpPost]
+        [Route("archive")]
+        public IActionResult Archive([FromBody] PostTextArchiveDto text)
+        {
+            string action = text?.Action?.ToUpper();
+
+            if (action == "ARCHIVE")
+            {
+                _uow.TextService.Archive(UserId, text.Id, true);
+            }
+            else if (action == "UNARCHIVE")
+            {
+                _uow.TextService.Archive(UserId, text.Id, false);
+            }
 
             return Ok("Index");
         }

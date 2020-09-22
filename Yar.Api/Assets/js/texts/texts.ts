@@ -18,8 +18,8 @@ var app = new Vue({
         }
     },
     methods: {
-        filterByLanguage(language: string) {
-            this.filter = language;
+        quickFilter(filter: string) {
+            this.filter = filter;
             this.getTexts()
         },
         getTexts() {
@@ -46,7 +46,23 @@ var app = new Vue({
                     });
             }, 500)
         },
-        deleteText: function(textId) {
+        archiveText: function (textId, action) {
+            this.loading = true;
+
+            fetch(`/texts/archive`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: textId, action })
+            })
+                .then(response => {
+                    this.getTexts();
+                    this.loading = false;
+                });
+        },
+        deleteText: function (textId) {
             this.loading = true;
 
             fetch(`/texts/delete/${textId}`, {

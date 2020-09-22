@@ -10,6 +10,7 @@ namespace Yar.Api.Models
         public string Collection { get; set; }
         public int? CollectionNo { get; set; }
         public bool IsParallel { get; set; }
+        public bool IsArchived { get; set; }
         public string Created { get; set; }
         public string LastRead { get; set; }
         public string EditUrl { get; set; }
@@ -25,6 +26,7 @@ namespace Yar.Api.Models
                 Collection = text.Collection,
                 CollectionNo = text.CollectionNo,
                 IsParallel = text.IsParallel,
+                IsArchived = text.IsArchived,
                 Created = text.Created.ToString(),
                 LastRead = text.LastRead?.ToString(),
                 EditUrl = $"{editUrl}/{text.Id}",

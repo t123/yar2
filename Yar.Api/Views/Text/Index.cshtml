@@ -3,14 +3,15 @@
 @section secondaryMenu {
     <div class="ui menu secondary-menu">
         <div class="ui container">
-            <a asp-action="Index" class="item">All Texts</a>
+            <a asp-action="Index" class="item">All Texts (<span>{{ texts.length }}</span>)</a>
             <a asp-action="Create" class="item">Create a new text</a>
-            @{ 
-                foreach(var language in Model.OrderBy(x=>x.ToLowerInvariant()))
+            @{
+                foreach (var language in Model.OrderBy(x => x.ToLowerInvariant()))
                 {
-                    <a class="item" v-on:click="filterByLanguage('@language')">@language</a>
+                    <a class="item" v-on:click="quickFilter('@language')">@language</a>
                 }
             }
+            <a class="item" v-on:click="quickFilter('archived:yes')">Archived</a>
         </div>
     </div>
 }
@@ -39,6 +40,7 @@
                     <th>Last Read</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -62,9 +64,13 @@
                     <td>{{ text.created }}</td>
                     <td>{{ text.lastRead }}</td>
                     <td>
-                        <a v-bind:href="text.editUrl" class="ui button" >
+                        <a v-bind:href="text.editUrl" class="ui button">
                             Edit
                         </a>
+                    </td>
+                    <td>
+                        <button v-if="text.isArchived" class="ui button" v-on:click="archiveText(text.id, 'unarchive')">Unarchive</button>
+                        <button v-else class="ui button" v-on:click="archiveText(text.id, 'archive')">Archive</button>
                     </td>
                     <td>
                         <button class="ui button negative" v-on:click="deleteText(text.id)">Delete</button>

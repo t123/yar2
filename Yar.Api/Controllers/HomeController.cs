@@ -18,7 +18,12 @@ namespace Yar.Api.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Text");
+            }
+
+            return RedirectToAction("Index", "Account");
         }
     }
 }

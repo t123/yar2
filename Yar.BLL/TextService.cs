@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Yar.BLL.Dto;
 using Yar.Data;
@@ -178,6 +179,20 @@ namespace Yar.BLL
             _repository.Save(obj);
 
             return obj;
+        }
+
+        public void Archive(int userId, int textId, bool state)
+        {
+            var text = Get(userId, textId);
+
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            text.IsArchived = state;
+
+            _repository.Save(text);
         }
     }
 }

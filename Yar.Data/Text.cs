@@ -17,6 +17,7 @@ namespace Yar.Data
         public virtual DateTime Updated { get; set; }
         public virtual DateTime? LastRead { get; set; }
         public virtual bool IsParallel { get; set; }
+        public virtual bool IsArchived { get; set; }
 
         public virtual int NotSeen { get; set; }
         public virtual int Total { get; set; }
