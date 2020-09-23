@@ -72,8 +72,9 @@ namespace Yar.Api.Controllers
                     foreach (var word in words)
                     {
                         var notes = word.Notes.Replace("\n", "<br/>");
+                        var source = word.SentenceObj?.Text?.FullTitle ?? "Unknown";
 
-                        writer.WriteLine($@"""{word.Uuid}""{Tab}""{word.Phrase}""{Tab}""{(string.IsNullOrWhiteSpace(word.PhraseBase) ? word.Phrase : word.PhraseBase)}""{Tab}""{word.Translation}""{Tab}""{word.Sentence}""{Tab}""{notes}""{Tab}""{word.Created}""{Tab}""{word.Updated}""");
+                        writer.WriteLine($@"""{word.Uuid}""{Tab}""{word.Phrase}""{Tab}""{(string.IsNullOrWhiteSpace(word.PhraseBase) ? word.Phrase : word.PhraseBase)}""{Tab}""{word.Translation}""{Tab}""{word.Sentence}""{Tab}""{notes}""{Tab}""{word.Created}""{Tab}""{word.Updated}""{Tab}""{source}""");
                     }
 
                     writer.Flush();

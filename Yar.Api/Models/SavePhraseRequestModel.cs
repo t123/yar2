@@ -11,5 +11,6 @@
         public string PhraseBase { get; set; }
         public string Notes { get; set; }
         public bool HasMore { get; set; }
+        public int TextId { get; set; }
     }
 }

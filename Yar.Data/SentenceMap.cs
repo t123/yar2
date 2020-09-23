@@ -10,6 +10,7 @@ namespace Yar.Data
             Map(m => m.Created);
             Map(m => m.Sntnce);
             References(m => m.Word);
+            References(m => m.Text);
         }
     }
 }

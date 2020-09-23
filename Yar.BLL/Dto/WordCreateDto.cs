@@ -11,6 +11,7 @@ namespace Yar.BLL.Dto
         public string Sentence { get; set; }
         public string Translation { get; set; }
         public WordState State { get; set; }
+        public int TextId { get; set; }
     }
 
     public class WordTranslateCreateDto
@@ -19,6 +20,7 @@ namespace Yar.BLL.Dto
         public string Phrase { get; set; }
         public string Sentence { get; set; }
         public string Translation { get; set; }
+        public int TextId { get; set; }
     }
 
     public class WordTranslateUpdateDto
@@ -26,5 +28,6 @@ namespace Yar.BLL.Dto
         public int Id { get; set; }
         public int LanguageId { get; set; }
         public string Sentence { get; set; }
+        public int TextId { get; set; }
     }
 }

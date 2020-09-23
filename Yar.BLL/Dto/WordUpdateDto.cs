@@ -12,5 +12,6 @@ namespace Yar.BLL.Dto
         public string Translation { get; set; }
         public WordState State { get; set; }
         public int LanguageId { get; set; }
+        public int TextId { get; set; }
     }
 }

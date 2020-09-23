@@ -69,6 +69,7 @@ export interface SavePhraseRequestModel
 	phraseBase: string;
 	notes: string;
 	hasMore: boolean;
+	textId: number;
 }
 export interface SentenceIndexModel
 {
@@ -169,12 +170,14 @@ export interface TranslationRequestModel
 	userId: number;
 	languageId: number;
 	method: string;
+	textId: number;
 }
 export interface RetranslateResponseModel
 {
 	phrase: string;
 	phraseLower: string;
 	translation: string;
+	textId: number;
 }
 export interface UndoRequestModel
 {

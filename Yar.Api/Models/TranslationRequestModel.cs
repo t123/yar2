@@ -7,6 +7,7 @@
         public int UserId { get; set; }
         public int LanguageId { get; set; }
         public string Method { get; set; }
+        public int TextId { get; set; }
     }
 
     public class RetranslateResponseModel

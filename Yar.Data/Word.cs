@@ -15,6 +15,7 @@ namespace Yar.Data
         public virtual string Translation { get; set; }
         public virtual string Notes { get; set; }
         public virtual string Sentence => Sentences?.LastOrDefault()?.Sntnce ?? "";
+        public virtual Sentence SentenceObj => Sentences?.LastOrDefault();
 
         public virtual IList<Sentence> Sentences { get; set; }
 

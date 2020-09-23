@@ -12,12 +12,14 @@ namespace Yar.BLL
         private readonly GenericRepository<Word> _repository;
         private readonly GenericRepository<User> _userRepository;
         private readonly GenericRepository<Language> _languageRepository;
+        private readonly GenericRepository<Text> _textRepository;
 
         public WordService(ISession session)
         {
             _repository = new GenericRepository<Word>(session);
             _userRepository = new GenericRepository<User>(session);
             _languageRepository = new GenericRepository<Language>(session);
+            _textRepository = new GenericRepository<Text>(session);
         }
 
         public Word GetById(int userId, int wordId)
@@ -133,6 +135,7 @@ namespace Yar.BLL
         {
             var language = _languageRepository.GetById(word.LanguageId);
             WordState initialState;
+
             if (!Enum.TryParse(language.GetOption<string>(LanguageOptions.StateOnOpen), true, out initialState))
             {
                 initialState = WordState.NotKnown;
@@ -150,7 +153,7 @@ namespace Yar.BLL
                 Notes = "",
             };
 
-            AddSentence(obj, language, word.Sentence);
+            AddSentence(obj, language, word.Sentence, word.TextId);
 
             return CreateWord(userId, obj);
         }
@@ -194,7 +197,7 @@ namespace Yar.BLL
                 Notes = word.Notes ?? "",
             };
 
-            AddSentence(obj, language, word.Sentence);
+            AddSentence(obj, language, word.Sentence, word.TextId);
 
             return CreateWord(userId, obj);
         }
@@ -216,7 +219,7 @@ namespace Yar.BLL
             obj.State = word.State;
             obj.Notes = word.Notes;
 
-            AddSentence(obj, language, word.Sentence);
+            AddSentence(obj, language, word.Sentence, word.TextId);
 
             return UpdateWord(userId, obj);
         }
@@ -232,12 +235,12 @@ namespace Yar.BLL
 
             var language = _languageRepository.GetById(word.LanguageId);
 
-            AddSentence(obj, language, word.Sentence);
+            AddSentence(obj, language, word.Sentence, word.TextId);
 
             return UpdateWord(userId, obj);
         }
 
-        private void AddSentence(Word word, Language language, string sentence)
+        private void AddSentence(Word word, Language language, string sentence, int textId)
         {
             if (word.Sentences == null)
             {
@@ -261,6 +264,7 @@ namespace Yar.BLL
                 word.Sentences.Clear();
             }
 
+            var text = _textRepository.GetById(textId);
             sentence = sentence.Trim();
 
             if (!word.Sentences.Any(w => w.Sntnce == sentence))
@@ -270,7 +274,8 @@ namespace Yar.BLL
                     {
                         Created = DateTime.UtcNow,
                         Sntnce = sentence ?? "",
-                        Word = word
+                        Word = word,
+                        Text = text
                     }
                 );
             }

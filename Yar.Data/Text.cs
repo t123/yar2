@@ -24,5 +24,25 @@ namespace Yar.Data
         public virtual int Known { get; set; }
         public virtual int NotKnown { get; set; }
         public virtual int Ignored { get; set; }
+
+        public virtual string FullTitle
+        {
+            get
+            {
+                var title = Title;
+
+                if (!string.IsNullOrEmpty(Collection))
+                {
+                    title += $" - {Collection}";
+                }
+
+                if (CollectionNo.HasValue)
+                {
+                    title += $" - {CollectionNo.Value}";
+                }
+
+                return title;
+            }
+        }
     }
 }

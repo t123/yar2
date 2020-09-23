@@ -8,5 +8,6 @@ namespace Yar.Data
         public virtual string Sntnce { get; set; }
         public virtual Word Word { get; set; }
         public virtual DateTime Created { get; set; }
+        public virtual Text Text { get; set; }
     }
 }

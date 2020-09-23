@@ -28,19 +28,7 @@ namespace Yar.Api.Controllers
             var text = _uow.TextService.Get(UserId, textId);
             var other = _uow.TextService.GetPreviousAndNext(text);
 
-            var title = text.Title;
-
-            if (!string.IsNullOrEmpty(text.Collection))
-            {
-                title += $" - {text.Collection}";
-            }
-
-            if (text.CollectionNo.HasValue)
-            {
-                title += $" - {text.CollectionNo.Value}";
-            }
-
-            return View(new ReadIndexModel(textId, asParallel, text.Language.Id, text.IsParallel, other.Previous?.Id, other.Next?.Id, title));
+            return View(new ReadIndexModel(textId, asParallel, text.Language.Id, text.IsParallel, other.Previous?.Id, other.Next?.Id, text.FullTitle));
         }
 
         [HttpGet]
@@ -97,7 +85,8 @@ namespace Yar.Api.Controllers
                     PhraseBase = model.PhraseBase,
                     Sentence = model.Sentence,
                     Translation = model.Translation,
-                    State = Enum.Parse<WordState>(model.State, true)
+                    State = Enum.Parse<WordState>(model.State, true),
+                    TextId = model.TextId
                 };
 
                 word = _uow.WordService.Save(UserId, createWord);
@@ -113,7 +102,8 @@ namespace Yar.Api.Controllers
                     PhraseBase = model.PhraseBase,
                     Translation = model.Translation,
                     State = Enum.Parse<WordState>(model.State, true),
-                    LanguageId = model.LanguageId
+                    LanguageId = model.LanguageId,
+                    TextId = model.TextId
                 };
 
                 word = _uow.WordService.Save(UserId, updateWord);
@@ -162,7 +152,6 @@ namespace Yar.Api.Controllers
             return Ok(vm);
         }
 
-
         [HttpPost]
         [Route("translate")]
         public IActionResult Translate([FromBody] TranslationRequestModel model)
@@ -184,6 +173,7 @@ namespace Yar.Api.Controllers
                         Phrase = model.Phrase,
                         Sentence = model.Sentence,
                         Translation = translation.Result.Translation,
+                        TextId = model.TextId
                     };
 
                     word = _uow.WordService.Save(UserId, createWord);
@@ -200,7 +190,8 @@ namespace Yar.Api.Controllers
                 {
                     Id = word.Id,
                     LanguageId = model.LanguageId,
-                    Sentence = model.Sentence
+                    Sentence = model.Sentence,
+                    TextId = model.TextId
                 };
 
                 word = _uow.WordService.Save(UserId, updateWord);

@@ -44,7 +44,8 @@ class Api {
             sentence,
             languageId: this.text.languageId,
             userId: this.text.userId,
-            method: null
+            method: null,
+            textId: this.text.id
         };
 
         return fetch(`/read/translate/`,
@@ -65,7 +66,8 @@ class Api {
             method,
             sentence: '',
             languageId: this.text.languageId,
-            userId: this.text.userId
+            userId: this.text.userId,
+            textId: this.text.id
         };
 
         return fetch(`/read/retranslate/`,
@@ -90,7 +92,8 @@ class Api {
             hasMore: modalData.hasMore,
             state: modalData.state,
             phraseBase: modalData.phraseBase,
-            notes: modalData.notes
+            notes: modalData.notes,
+            textId: this.text.id
         };
 
         return fetch(`/read/save`,
