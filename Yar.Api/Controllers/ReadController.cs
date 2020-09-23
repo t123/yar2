@@ -38,9 +38,19 @@ namespace Yar.Api.Controllers
             var text = _uow.TextService.Get(UserId, textId);
             _uow.TextService.SetLastRead(UserId, text.Id);
             var result = _uow.ParserService.Parse(text, _uow.WordService.Get(UserId, text.Language.Id).ToArray(), asParallel);
+            _uow.TextService.Parse(UserId, textId, result);
+
             var model = TextReadModel.From(text, result);
 
             return Ok(model);
+        }
+
+        [HttpPost]
+        [Route("parse/{textId}")]
+        public IActionResult Parse(int textId)
+        {
+            _uow.TextService.Parse(UserId, textId);
+            return Ok();
         }
 
         [HttpPost]

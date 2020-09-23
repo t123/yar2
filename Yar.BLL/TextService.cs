@@ -181,6 +181,39 @@ namespace Yar.BLL
             return obj;
         }
 
+        public void Parse(int userId, int textId)
+        {
+            var text = Get(userId, textId);
+
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            var parser = new ParserService(new TextParserHelper());
+            var output = parser.Parse(text, _wordRepository.Get().Where(x => x.User.Id == userId && x.Language.Id == text.Language.Id).ToArray(), false);
+
+            Parse(userId, textId, output);
+        }
+
+        public void Parse(int userId, int textId, ParserResult output)
+        {
+            var text = Get(userId, textId);
+
+            if (text == null)
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            text.Total = output.Total;
+            text.Known = output.Known;
+            text.NotKnown = output.NotKnown;
+            text.Ignored = output.Ignored;
+            text.NotSeen = output.NotSeen;
+
+            _repository.Save(text);
+        }
+
         public void Archive(int userId, int textId, bool state)
         {
             var text = Get(userId, textId);

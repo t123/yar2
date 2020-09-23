@@ -125,6 +125,17 @@ class Api {
             })
             .then(response => response.json());
     }
+
+    public parse() {
+        fetch(`/read/parse/${this.text.id}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+    }
 }
 
 export class Reader {
@@ -147,7 +158,8 @@ export class Reader {
         let textId: number = $(this.readingElement).data('text-id');
         let asParallel: boolean = $(this.readingElement).data('as-parallel');
 
-        this.api.getText(textId, asParallel)
+        this.api
+            .getText(textId, asParallel)
             .then(data => {
                 this.text = data;
                 this.setup();
@@ -203,6 +215,10 @@ export class Reader {
 
         $(window).on('resize', () => {
             this.pager.calculatePages();
+        });
+
+        $(window).on('beforeunload', () => {
+            this.api.parse();
         });
 
         $(document).on('keydown', null, null, event => {
