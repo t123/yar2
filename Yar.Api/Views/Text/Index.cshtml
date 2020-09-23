@@ -3,7 +3,7 @@
 @section secondaryMenu {
     <div class="ui menu secondary-menu">
         <div class="ui container">
-            <a asp-action="Index" class="item">All Texts (<span>{{ texts.length }}</span>)</a>
+            <a class="item" v-on:click="quickFilter('')">All Texts (<span>{{ texts.length }}</span>)</a>
             <a asp-action="Create" class="item">Create a new text</a>
             @{
                 foreach (var language in Model.OrderBy(x => x.ToLowerInvariant()))
@@ -20,7 +20,7 @@
     <div class="ui inverted segment">
         <div class="filter ui inverted form">
             <div class="field">
-                <input type="text" v-model="filter" v-on:keyup="getTexts()" placeholder="Type to filter your texts. Special tags: title:[title] collection:[collection] language:[language] parallel:[yes,no] read:[yes,no,number]" />
+                <input type="text" v-model="filter" v-on:keyup="getTexts()" placeholder="Type to filter your texts. Special tags: title:[title] collection:[collection] language:[language] parallel:[yes,no] read:[yes,no,number] archived:[yes,no]" />
             </div>
         </div>
     </div>

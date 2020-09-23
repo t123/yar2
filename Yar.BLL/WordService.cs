@@ -146,7 +146,6 @@ namespace Yar.BLL
                 PhraseBase = "",
                 IsFragment = IsPhraseFragment(word.Phrase),
                 State = initialState,
-                Box = 1,
                 Translation = word.Translation ?? "",
                 Notes = "",
             };
@@ -191,7 +190,6 @@ namespace Yar.BLL
                 PhraseBase = word.PhraseBase ?? "",
                 IsFragment = IsPhraseFragment(word.Phrase),
                 State = word.State,
-                Box = 1,
                 Translation = word.Translation ?? "",
                 Notes = word.Notes ?? "",
             };

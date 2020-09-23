@@ -61,7 +61,7 @@ namespace Yar.Api.Controllers
                 .Get(UserId)
                 .Where(x => x.State == WordState.NotKnown && x.Language.Name.ToUpper() == languageName.ToUpper())
                 .OrderBy(x => x.Language.Name)
-                .ThenBy(x => x.PhraseLower);
+                .ThenBy(x => x.Created);
 
             using (var memoryStream = new MemoryStream())
             {
@@ -72,6 +72,7 @@ namespace Yar.Api.Controllers
                     foreach (var word in words)
                     {
                         var notes = word.Notes.Replace("\n", "<br/>");
+
                         writer.WriteLine($@"""{word.Uuid}""{Tab}""{word.Phrase}""{Tab}""{(string.IsNullOrWhiteSpace(word.PhraseBase) ? word.Phrase : word.PhraseBase)}""{Tab}""{word.Translation}""{Tab}""{word.Sentence}""{Tab}""{notes}""{Tab}""{word.Created}""{Tab}""{word.Updated}""");
                     }
 

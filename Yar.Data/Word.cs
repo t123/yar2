@@ -22,8 +22,6 @@ namespace Yar.Data
         public virtual DateTime Updated { get; set; }
 
         public virtual WordState State { get; set; }
-        public virtual int? Box { get; set; }
-        public virtual DateTime? NextReviewDate { get; set; }
 
         public virtual bool IsFragment { get; set; }
         public virtual int FragmentLength { get; set; }

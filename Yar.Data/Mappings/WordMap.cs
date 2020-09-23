@@ -17,7 +17,6 @@ namespace Yar.Data
             Map(m => m.Created);
             Map(m => m.Updated);
             Map(m => m.State).CustomType<WordState>();
-            Map(m => m.Box);
             Map(m => m.IsFragment);
             Map(m => m.Uuid);
             Map(m => m.FragmentLength);
