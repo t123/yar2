@@ -9,11 +9,11 @@ namespace Yar.Data
             Id(m => m.Id);
             Map(m => m.Username);
             HasMany(m => m.Languages).Cascade.AllDeleteOrphan();
-            HasMany(m => m.Words).Cascade.AllDeleteOrphan();
+            HasMany(m => m.Words).Cascade.AllDeleteOrphan().Where(x => !x.IsDeleted);
             HasMany(m => m.Texts).Cascade.AllDeleteOrphan();
             Map(m => m.Created);
             Map(m => m.Updated);
-            Map(m => m.LastLogin).Nullable(); 
+            Map(m => m.LastLogin).Nullable();
         }
     }
 }

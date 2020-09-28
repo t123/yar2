@@ -44,7 +44,7 @@ namespace Yar.BLL
         public OptionService OptionService => _optionService.Value;
         public IParserService ParserService => _parserService.Value;
 
-        public UnitOfWork(ILogger<UnitOfWork> logger, bool autoSaveChanges = true)
+        public UnitOfWork(bool autoSaveChanges = true)
         {
             _autoSaveChanges = autoSaveChanges;
             _session = _sessionFactory.OpenSession();

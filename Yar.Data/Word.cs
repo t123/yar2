@@ -28,5 +28,6 @@ namespace Yar.Data
         public virtual int FragmentLength { get; set; }
         public virtual bool HasSentence => !string.IsNullOrWhiteSpace(Sentence);
         public virtual Guid Uuid { get; set; }
+        public virtual bool IsDeleted { get; set; }
     }
 }

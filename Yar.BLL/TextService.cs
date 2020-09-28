@@ -108,6 +108,14 @@ namespace Yar.BLL
             _repository.Save(text);
         }
 
+        public void ParseAll(int userId)
+        {
+            foreach (var text in Get(userId))
+            {
+                Parse(userId, text.Id);
+            }
+        }
+
         public Text Save(int userId, PostTextDto text)
         {
             var user = _userRepository.GetById(userId);

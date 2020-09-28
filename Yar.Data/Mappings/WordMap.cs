@@ -21,6 +21,7 @@ namespace Yar.Data
             Map(m => m.Uuid);
             Map(m => m.FragmentLength);
             HasMany(m => m.Sentences).Cascade.AllDeleteOrphan();
+            Map(m => m.IsDeleted);
         }
     }
 }

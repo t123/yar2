@@ -13,6 +13,7 @@ namespace Yar.BLL
         private readonly GenericRepository<User> _userRepository;
         private readonly GenericRepository<Language> _languageRepository;
         private readonly GenericRepository<Text> _textRepository;
+        private readonly GenericRepository<WordLog> _wordLogRepository;
 
         public WordService(ISession session)
         {
@@ -20,31 +21,32 @@ namespace Yar.BLL
             _userRepository = new GenericRepository<User>(session);
             _languageRepository = new GenericRepository<Language>(session);
             _textRepository = new GenericRepository<Text>(session);
+            _wordLogRepository = new GenericRepository<WordLog>(session);
         }
 
         public Word GetById(int userId, int wordId)
         {
-            return _repository.Get().SingleOrDefault(x => x.User.Id == userId && x.Id == wordId);
+            return _repository.Get().SingleOrDefault(x => x.User.Id == userId && x.Id == wordId && !x.IsDeleted);
         }
 
         public Word Get(int userId, Guid uuid)
         {
-            return _repository.Get().SingleOrDefault(x => x.User.Id == userId && x.Uuid == uuid);
+            return _repository.Get().SingleOrDefault(x => x.User.Id == userId && x.Uuid == uuid && !x.IsDeleted);
         }
 
         public IEnumerable<Word> Get(int userId)
         {
-            return _repository.Get().Where(x => x.User.Id == userId);
+            return _repository.Get().Where(x => x.User.Id == userId && !x.IsDeleted);
         }
 
         public IEnumerable<Word> Get(int userId, int languageId)
         {
-            return _repository.Get().Where(x => x.User.Id == userId && x.Language.Id == languageId);
+            return _repository.Get().Where(x => x.User.Id == userId && x.Language.Id == languageId && !x.IsDeleted);
         }
 
         public Word Get(int userId, int languageId, string phrase)
         {
-            return _repository.Get().SingleOrDefault(x => x.User.Id == userId && x.Language.Id == languageId && x.PhraseLower == phrase.ToLowerInvariant());
+            return _repository.Get().SingleOrDefault(x => x.User.Id == userId && x.Language.Id == languageId && !x.IsDeleted && x.PhraseLower == phrase.ToLowerInvariant());
         }
 
         public void Delete(int userId, int wordId)
@@ -56,7 +58,10 @@ namespace Yar.BLL
                 throw new ArgumentNullException(nameof(word));
             }
 
-            _repository.Delete(word);
+            word.IsDeleted = true;
+            _repository.Save(word);
+
+            UpdateWordLog(word, "Delete");
         }
 
         private bool IsPhraseFragment(string phrase)
@@ -67,6 +72,21 @@ namespace Yar.BLL
         private int PhraseFragmentLength(string phrase)
         {
             return phrase?.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Count() ?? 1;
+        }
+
+        private void UpdateWordLog(Word word, string action)
+        {
+            var wordLog = new WordLog
+            {
+                Created = DateTime.UtcNow,
+                Language = word.Language,
+                User = word.User,
+                Word = word,
+                Action = action,
+                State = word.State.ToString()
+            };
+
+            _wordLogRepository.Save(wordLog);
         }
 
         private Word CreateWord(int userId, Word word)
@@ -100,6 +120,8 @@ namespace Yar.BLL
             user.Words.Add(word);
             _userRepository.Save(user);
 
+            UpdateWordLog(word, "Create");
+
             return word;
         }
 
@@ -127,6 +149,8 @@ namespace Yar.BLL
             obj.Updated = DateTime.UtcNow;
 
             _repository.Save(word);
+
+            UpdateWordLog(word, "Update");
 
             return word;
         }
