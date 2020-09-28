@@ -25,5 +25,11 @@ namespace Yar.Api.Controllers
 
             return RedirectToAction("Index", "Account");
         }
+
+        [Route("license")]
+        public IActionResult License()
+        {
+            return View();
+        }
     }
 }
